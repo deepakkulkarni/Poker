@@ -1,7 +1,9 @@
-package production;
+package com.test.entity;
 
-import java.util.List;
+import com.test.evaluator.Constants;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by user on 6/25/2016.

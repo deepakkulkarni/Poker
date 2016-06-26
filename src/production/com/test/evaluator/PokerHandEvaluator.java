@@ -1,6 +1,8 @@
-package production;
+package com.test.evaluator;
 
-import java.util.Collections;
+import com.test.entity.Card;
+import com.test.entity.PokerHand;
+
 import java.util.List;
 
 /**

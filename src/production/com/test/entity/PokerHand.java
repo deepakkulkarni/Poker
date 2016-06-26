@@ -1,6 +1,5 @@
-package production;
+package com.test.entity;
 
-import java.util.Comparator;
 import java.util.List;
 
 /**

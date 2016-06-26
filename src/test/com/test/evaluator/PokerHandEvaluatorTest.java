@@ -1,10 +1,9 @@
-package test;
+package com.test.evaluator;
 
+import com.test.entity.Card;
+import com.test.entity.Deck;
+import com.test.entity.PokerHand;
 import org.junit.Test;
-import production.Card;
-import production.Deck;
-import production.PokerHand;
-import production.PokerHandEvaluator;
 
 import java.util.ArrayList;
 import java.util.List;

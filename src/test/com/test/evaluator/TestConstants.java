@@ -1,4 +1,4 @@
-package test;
+package com.test.evaluator;
 
 /**
  * Created by user on 6/26/2016.
