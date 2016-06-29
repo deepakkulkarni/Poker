@@ -1,9 +1,9 @@
-package com.test.evaluator;
+package com.task.evaluator;
 
 /**
  * Created by user on 6/26/2016.
  */
-public class Constants {
+public class TestConstants {
 
     public enum SUITE {HEART(1), DIAMOND(2), SPADE(3), CLUB(4);
         private final int value;

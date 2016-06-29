@@ -1,6 +1,6 @@
-package com.test.entity;
+package com.task.entity;
 
-import com.test.evaluator.Constants;
+import com.task.evaluator.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
