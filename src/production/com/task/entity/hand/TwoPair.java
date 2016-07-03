@@ -2,6 +2,7 @@ package com.task.entity.hand;
 
 import com.task.entity.Card;
 import com.task.entity.PokerHand;
+import com.task.evaluator.EvaluationResult;
 import com.task.util.Constants;
 
 import java.util.ArrayList;
@@ -15,11 +16,12 @@ public class TwoPair extends PokerHand {
     public static final String handType = Constants.PARTIAL_ORDER.TWO_PAIRS.toString();
 
     public TwoPair(List<Card> cards) {
-        super(cards,handType);
+        super(cards, handType);
     }
 
     @Override
-    public boolean evaluateRank() {
+    public EvaluationResult evaluate() {
+        EvaluationResult evaluationResult = new EvaluationResult();
         Card[] card = getSortedCardsArray();
         List<Card> pair1 = new ArrayList<>(2);
         List<Card> pair2 = new ArrayList<>(2);
@@ -39,10 +41,29 @@ public class TwoPair extends PokerHand {
                     }
                 }
             }
-            if (pair1.size() == 2 && pair2.size() == 2)
-                return true;
+            if (pair1.size() == 2 && pair2.size() == 2) {
+                evaluationResult.setPartialOrder(true);
+                setCardRankOrder(evaluationResult, pair1, pair2);
+                return evaluationResult;
+            }
         }
-        return false;
+        evaluationResult.setPartialOrder(false);
+        return evaluationResult;
+    }
+
+    private void setCardRankOrder(EvaluationResult evaluationResult, List<Card> pair1, List<Card> pair2) {
+        getCards().removeAll(pair1);
+        getCards().removeAll(pair2);
+        sortCardsByRank();
+
+        if (Constants.RANK.valueOf(pair1.get(0).getRank()).getValue() > Constants.RANK.valueOf(pair2.get(0).getRank()).getValue()) {
+            evaluationResult.setPrimary(Constants.RANK.valueOf(pair1.get(0).getRank()).getValue());
+            evaluationResult.setSecondary(Constants.RANK.valueOf(pair2.get(0).getRank()).getValue());
+        } else {
+            evaluationResult.setPrimary(Constants.RANK.valueOf(pair2.get(0).getRank()).getValue());
+            evaluationResult.setSecondary(Constants.RANK.valueOf(pair1.get(0).getRank()).getValue());
+        }
+        evaluationResult.setTertiary(Constants.RANK.valueOf(getCards().get(0).getRank()).getValue());
     }
 
 }

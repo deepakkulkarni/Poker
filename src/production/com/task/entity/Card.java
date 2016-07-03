@@ -39,22 +39,6 @@ public class Card {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Card card = (Card) o;
-
-        return rank.equals(card.rank);
-
-    }
-
-    @Override
-    public int hashCode() {
-        return rank.hashCode();
-    }
-
-    @Override
     public String toString() {
         return "Card{" +
                 "suite='" + suite + '\'' +

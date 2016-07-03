@@ -5,8 +5,8 @@ package com.task.evaluator;
  */
 public interface Evaluator {
 
-    default boolean evaluateRank(){
-        return true;
+    default EvaluationResult evaluate() {
+        return null;
     }
 
 }

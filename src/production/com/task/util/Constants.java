@@ -5,7 +5,8 @@ package com.task.util;
  */
 public class Constants {
 
-    public enum SUITE {HEART(1), DIAMOND(2), SPADE(3), CLUB(4);
+    public enum SUITE {
+        HEART(1), DIAMOND(2), SPADE(3), CLUB(4);
         private final int value;
 
         SUITE(int value) {

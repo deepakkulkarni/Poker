@@ -1,8 +1,9 @@
 package com.task.entity;
 
+import com.task.evaluator.EvaluationResult;
 import com.task.evaluator.Evaluator;
+import com.task.util.Constants;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -13,19 +14,13 @@ public class PokerHand implements Evaluator {
 
     private final List<Card> cards;
     private String handType;
+    private EvaluationResult evaluationResult;
     private int finalRank;
-    private int finalValue;
-
-    public static final Comparator<PokerHand> byFinalRank = (hand1, hand2) -> Integer.compare(hand1.getFinalRank(), hand2.getFinalRank());
+    private final Comparator<Card> byRank = (c1, c2) -> Integer.compare(Constants.RANK.valueOf(c1.getRank()).getValue(), Constants.RANK.valueOf(c2.getRank()).getValue());
 
     public PokerHand(List<Card> cards, String handType) {
         this.cards = cards;
         this.handType = handType;
-    }
-
-    public static List<PokerHand> sortByFinalRank(List<PokerHand> pokerHands) {
-        Collections.sort(pokerHands, byFinalRank);
-        return pokerHands;
     }
 
     protected Card[] getSortedCardsArray() {
@@ -34,6 +29,7 @@ public class PokerHand implements Evaluator {
         card = cards.toArray(card);
         return card;
     }
+
     public String getHandType() {
         return handType;
     }
@@ -54,11 +50,15 @@ public class PokerHand implements Evaluator {
         this.finalRank = finalRank;
     }
 
-    public int getFinalValue() {
-        return finalValue;
+    public EvaluationResult getEvaluationResult() {
+        return evaluationResult;
     }
 
-    public void setFinalValue(int finalValue) {
-        this.finalValue = finalValue;
+    protected void sortCardsByRank() {
+        getCards().sort(byRank);
+    }
+
+    public void setEvaluationResult(EvaluationResult evaluationResult) {
+        this.evaluationResult = evaluationResult;
     }
 }
