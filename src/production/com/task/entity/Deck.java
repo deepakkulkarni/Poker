@@ -1,6 +1,6 @@
 package com.task.entity;
 
-import com.task.evaluator.Constants;
+import com.task.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,13 +9,13 @@ import java.util.List;
  * Created by user on 6/25/2016.
  */
 public class Deck {
-    private List cards = new ArrayList();
+    private List<Card> cards = new ArrayList();
 
     public Deck() {
         initializeCards(cards);
     }
 
-    public List getCards() {
+    public List<Card> getCards() {
         return cards;
     }
 

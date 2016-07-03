@@ -2,136 +2,97 @@ package com.task.evaluator;
 
 import com.task.entity.Card;
 import com.task.entity.PokerHand;
+import com.task.entity.hand.*;
+import com.task.util.Constants;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by user on 6/25/2016.
  */
 public class PokerHandEvaluator {
 
-    public Card evaluateHighestRankCard(PokerHand pokerHand) {
-        return Card.evaluateHighestRank(pokerHand.getCards());
+    private PokerHand pokerHand;
+    private List<PokerHand> typeOfHands = new ArrayList();
+
+    public PokerHandEvaluator(PokerHand pokerHand) {
+        this.pokerHand = pokerHand;
+        typeOfHands.add(new StraightFlush(pokerHand.getCards()));
+        typeOfHands.add(new FourOfAKind(pokerHand.getCards()));
+        typeOfHands.add(new FullHouse(pokerHand.getCards()));
+        typeOfHands.add(new Flush(pokerHand.getCards()));
+        typeOfHands.add(new Straight(pokerHand.getCards()));
+        typeOfHands.add(new ThreeOfAKind(pokerHand.getCards()));
+        typeOfHands.add(new TwoPair(pokerHand.getCards()));
+        typeOfHands.add(new Pair(pokerHand.getCards()));
+        typeOfHands.add(new HighCard(pokerHand.getCards()));
     }
 
-    public boolean isStraightHand(PokerHand pokerHand) {
-        Card[] card = getSortedCardsArray(pokerHand);
-        for (int idx = 1; idx < card.length; idx++) {
-            if (card[idx].getRankValue() - card[idx - 1].getRankValue() != 1)
-                return false;
-        }
-        return true;
-    }
-
-    public boolean isStraightFlushHand(PokerHand pokerHand) {
-        Card[] card = getSortedCardsArray(pokerHand);
-        for (int idx = 1; idx < card.length; idx++) {
-            if (card[idx].getSuiteValue() != card[idx - 1].getSuiteValue() || card[idx].getRankValue() - card[idx - 1].getRankValue() != 1)
-                return false;
-        }
-        return true;
-    }
-
-    public boolean isFlushHand(PokerHand pokerHand) {
-        Card card[] = getSortedCardsArray(pokerHand);
-        for (int idx = 1; idx < card.length; idx++) {
-            if (card[idx].getSuiteValue() != card[idx - 1].getSuiteValue())
-                return false;
-        }
-        return true;
-    }
-
-    public boolean isFourOfAKindHand(PokerHand pokerHand) {
-        List<Card> cards = pokerHand.getCards();
-        Set<Card> uniqueCards = new HashSet<>(cards);
-        if (cards.size() - uniqueCards.size() == 3)
-            return true;
-        return false;
-    }
-
-    public boolean isThreeOfAKindHand(PokerHand pokerHand) {
-        Card[] card = getSortedCardsArray(pokerHand);
-        for (int idx = 0; idx < card.length; idx++) {
-            int count = 0;
-            for (int idy = 0; idy < card.length; idy++) {
-                if (card[idx].getRankValue() == card[idy].getRankValue())
-                    count++;
-            }
-            if (count == 3)
-                return true;
-        }
-        return false;
-    }
-
-    public boolean isFullHouseHand(PokerHand pokerHand) {
-        Card[] card = getSortedCardsArray(pokerHand);
-        List<Card> pair = new ArrayList<>();
-
-        for (int idx = 0; idx < card.length; idx++) {
-            int count = 0;
-            pair.clear();
-            for (int idy = 0; idy < card.length; idy++) {
-                if (card[idx].getRankValue() == card[idy].getRankValue()) {
-                    count++;
-                }
-                else
-                    pair.add(card[idy]);
-            }
-            if (count == 3) {
-                if (pair.get(0).getRankValue() == pair.get(1).getRankValue())
-                    return true;
+    public int evaluate() {
+        int finalRank = 0;
+        for (PokerHand pokerHand : typeOfHands) {
+            if (pokerHand.evaluateRank()) {
+                finalRank = Constants.PARTIAL_ORDER.valueOf(pokerHand.getHandType()).getValue();
+                break;
             }
         }
-        return false;
+        return finalRank;
     }
 
-    public boolean isTwoPairHand(PokerHand pokerHand) {
-        Card[] card = getSortedCardsArray(pokerHand);
-        List<Card> pair1 = new ArrayList<>(2);
-        List<Card> pair2 = new ArrayList<>(2);
+    //Temporary method
+    public static void main(String... args) {
+        List<PokerHand> pokerHands = composeInput();
 
-        for (int idx = 0; idx < card.length; idx++) {
-            for (int idy = 0; idy < card.length; idy++) {
-                if (idx != idy && card[idx].getRankValue() == card[idy].getRankValue()) {
-                    if (pair1.size() != 2) {
-                        pair1.add(card[idx]);
-                        pair1.add(card[idy]);
-                        break;
-                    }
-                    if (pair2.size() != 2 && !pair1.contains(card[idx])) {
-                        pair2.add(card[idx]);
-                        pair2.add(card[idy]);
-                        break;
-                    }
-                }
-            }
-            if (pair1.size() == 2 && pair2.size() == 2)
-                    return true;
+        for (PokerHand pokerHand : pokerHands) {
+            PokerHandEvaluator pokerHandEvaluator = new PokerHandEvaluator(pokerHand);
+            int finalRank = pokerHandEvaluator.evaluate();
+            pokerHand.setFinalRank(finalRank);
         }
-        return false;
-    }
 
-    public boolean isPairHand(PokerHand pokerHand) {
-        Card[] card = getSortedCardsArray(pokerHand);
-        for (int idx = 0; idx < card.length; idx++) {
-            int count = 0;
-            for (int idy = 0; idy < card.length; idy++) {
-                if (card[idx].getRankValue() == card[idy].getRankValue())
-                    count++;
-            }
-            if (count == 2)
-                return true;
+        List<PokerHand> result = PokerHand.sortByFinalRank(pokerHands);
+        if(result.get(0).getFinalRank() != result.get(1).getFinalRank()) {
+            PokerHand winnerPokerHand = result.get(0);
+            System.out.println(winnerPokerHand.getFinalRank());
+            System.out.println(Constants.PARTIAL_ORDER.values()[winnerPokerHand.getFinalRank() - 1]);
         }
-        return false;
-
     }
 
-    private Card[] getSortedCardsArray(PokerHand pokerHand) {
-        List<Card> cards = Card.sortByRank(pokerHand.getCards());
-        Card card[] = new Card[cards.size()];
-        card = cards.toArray(card);
-        return card;
+    //Temporary method
+    private static List<PokerHand> composeInput() {
+        List<PokerHand> pokerHands = new ArrayList<>();
+        List<Card> cards = new ArrayList<>();
+        Card card1 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.ACE.toString());
+        Card card2 = new Card(Constants.SUITE.HEART.toString(), Constants.RANK.KING.toString());
+        Card card3 = new Card(Constants.SUITE.CLUB.toString(), Constants.RANK.JACK.toString());
+        Card card4 = new Card(Constants.SUITE.SPADE.toString(), Constants.RANK.TEN.toString());
+        Card card5 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.QUEEN.toString());
+
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+
+        PokerHand pokerHand1 = new PokerHand(cards);
+
+        List<Card> cards1 = new ArrayList<>();
+
+        Card card11 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.KING.toString());
+        Card card12 = new Card(Constants.SUITE.SPADE.toString(), Constants.RANK.THREE.toString());
+        Card card13 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.TEN.toString());
+        Card card14 = new Card(Constants.SUITE.HEART.toString(), Constants.RANK.JACK.toString());
+        Card card15 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.TWO.toString());
+        cards1.add(card11);
+        cards1.add(card12);
+        cards1.add(card13);
+        cards1.add(card14);
+        cards1.add(card15);
+
+        PokerHand pokerHand2 = new PokerHand(cards1);
+
+        pokerHands.add(pokerHand1);
+        pokerHands.add(pokerHand2);
+        return pokerHands;
     }
-
-
 }

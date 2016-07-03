@@ -32,4 +32,19 @@ public class TestConstants {
         }
 
     }
+
+    public enum PARTIAL_ORDER {
+        STRAIGHT_FLUSH(1), FOUR_OF_A_KIND(2), FULL_HOUSE(3), FLUSH(4), STRAIGHT(5), THREE_OF_A_KIND(6),
+        TWO_PAIRS(7), PAIR(8), HIGH_CARD(9);
+
+        private final int value;
+
+        PARTIAL_ORDER(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
 }

@@ -1,6 +1,6 @@
 package com.task.entity;
 
-import com.task.evaluator.Constants;
+import com.task.util.Constants;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -14,28 +14,20 @@ public class Card {
     private final String suite;
     private final String rank;
 
+    public static final Comparator<Card> byRank = (c1, c2) -> Integer.compare(Constants.RANK.valueOf(c1.getRank()).getValue(), Constants.RANK.valueOf(c2.getRank()).getValue());
+
     public Card(String suite, String rank) {
         this.suite = suite;
         this.rank = rank;
     }
 
-    public String getSuite() {
-        return suite;
+    public static List<Card> sortByRank(List<Card> cards) {
+        Collections.sort(cards, byRank);
+        return cards;
     }
 
     public String getRank() {
         return rank;
-    }
-
-    public static final Comparator<Card> byRank = (c1, c2) -> Integer.compare(Constants.RANK.valueOf(c1.getRank()).getValue(), Constants.RANK.valueOf(c2.getRank()).getValue());
-
-    public static Card evaluateHighestRank(List<Card> cards) {
-        return cards.stream().max(byRank).get();
-    }
-
-    public static List<Card> sortByRank(List<Card> cards) {
-        Collections.sort(cards, byRank);
-        return cards;
     }
 
     public int getRankValue() {
