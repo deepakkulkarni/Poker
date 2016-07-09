@@ -1,13 +1,12 @@
-package com.task;
+package com.task.poker;
 
-import com.task.entity.Card;
-import com.task.entity.PokerHand;
-import com.task.evaluator.EvaluationResult;
-import com.task.evaluator.PokerHandEvaluator;
-import com.task.util.Constants;
+import com.task.poker.entity.Card;
+import com.task.poker.entity.PokerHand;
+import com.task.poker.evaluator.EvaluationResult;
+import com.task.poker.evaluator.HandEvaluator;
+import com.task.poker.util.Constants;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -20,25 +19,23 @@ public class App {
         List<EvaluationResult> evaluationResults = new ArrayList<>();
 
         for (PokerHand pokerHand : pokerHands) {
-            PokerHandEvaluator pokerHandEvaluator = new PokerHandEvaluator(pokerHand);
-            EvaluationResult evaluationResult = pokerHandEvaluator.evaluate();
-            pokerHand.setEvaluationResult(evaluationResult);
+            HandEvaluator handEvaluator = new HandEvaluator(pokerHand);
+            EvaluationResult evaluationResult = handEvaluator.evaluate();
+            evaluationResult.setPokerHand(pokerHand);
             evaluationResults.add(evaluationResult);
         }
 
-        Collections.sort(evaluationResults, EvaluationResult.byPartialOrder);
+        EvaluationResult evaluationResult = new EvaluationResult();
+        EvaluationResult winner = evaluationResult.getWinner(evaluationResults);
 
-        if (evaluationResults.get(0).getPartialOrder() != evaluationResults.get(1).getPartialOrder()) {
-            EvaluationResult evaluationResult = evaluationResults.get(0);
-            System.out.println(evaluationResult.getPartialOrder());
-            System.out.println(Constants.PARTIAL_ORDER.values()[evaluationResult.getPartialOrder() - 1]);
-        } else {
-            Collections.sort(evaluationResults, EvaluationResult.byPrimary);
-            EvaluationResult evaluationResult = evaluationResults.get(1);
-            System.out.println(evaluationResult.getPartialOrder());
-            System.out.println(Constants.PARTIAL_ORDER.values()[evaluationResult.getPartialOrder() - 1]);
-            System.out.println(evaluationResult.getPrimary());
-        }
+        winner.getPokerHand().listCards();
+        System.out.println(winner.getPartialOrder());
+        System.out.println(Constants.PARTIAL_ORDER.values()[winner.getPartialOrder() - 1]);
+        System.out.println(winner.getPrimary());
+        System.out.println(winner.getSecondary());
+        System.out.println(winner.getTertiary());
+        System.out.println(winner.getQuaternary());
+        System.out.println(winner.getQuinary());
     }
 
     private static List<PokerHand> composeInput() {

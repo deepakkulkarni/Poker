@@ -1,4 +1,4 @@
-package com.task.evaluator;
+package com.task.poker.evaluator;
 
 /**
  * Created by user on 6/26/2016.
@@ -6,10 +6,12 @@ package com.task.evaluator;
 public class TestConstants {
 
     public enum SUITE {
-        HEART(1), DIAMOND(2), SPADE(3), CLUB(4);
+        HEART("H", 1), DIAMOND("D", 2), SPADE("S", 3), CLUB("C", 4);
         private final int value;
+        private final String abbrevation;
 
-        SUITE(int value) {
+        SUITE(String abbrevation ,int value) {
+            this.abbrevation = abbrevation;
             this.value = value;
         }
 

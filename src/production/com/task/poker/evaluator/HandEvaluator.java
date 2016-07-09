@@ -1,8 +1,8 @@
-package com.task.evaluator;
+package com.task.poker.evaluator;
 
-import com.task.entity.PokerHand;
-import com.task.entity.hand.*;
-import com.task.util.Constants;
+import com.task.poker.entity.PokerHand;
+import com.task.poker.entity.hand.*;
+import com.task.poker.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,12 +10,12 @@ import java.util.List;
 /**
  * Created by user on 6/25/2016.
  */
-public class PokerHandEvaluator {
+public class HandEvaluator {
 
     private PokerHand pokerHand;
     private List<PokerHand> typeOfHands = new ArrayList();
 
-    public PokerHandEvaluator(PokerHand pokerHand) {
+    public HandEvaluator(PokerHand pokerHand) {
         this.pokerHand = pokerHand;
         typeOfHands.add(new StraightFlush(pokerHand.getCards()));
         typeOfHands.add(new FourOfAKind(pokerHand.getCards()));

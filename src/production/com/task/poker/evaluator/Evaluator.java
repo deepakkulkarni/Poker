@@ -1,4 +1,4 @@
-package com.task.evaluator;
+package com.task.poker.evaluator;
 
 /**
  * Created by user on 7/1/2016.
@@ -6,7 +6,7 @@ package com.task.evaluator;
 public interface Evaluator {
 
     default EvaluationResult evaluate() {
-        return null;
+        return new EvaluationResult();
     }
 
 }

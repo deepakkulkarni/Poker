@@ -1,9 +1,9 @@
-package com.task.evaluator;
+package com.task.poker.evaluator;
 
-import com.task.entity.Card;
-import com.task.entity.Deck;
-import com.task.entity.PokerHand;
-import com.task.entity.hand.*;
+import com.task.poker.entity.Card;
+import com.task.poker.entity.Deck;
+import com.task.poker.entity.PokerHand;
+import com.task.poker.entity.hand.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import static junit.framework.Assert.assertEquals;
 /**
  * Created by user on 6/25/2016.
  */
-public class PokerHandEvaluatorTest {
+public class HandEvaluatorTest {
 
     @Test
     public void setUpEnvironment() {
@@ -323,8 +323,8 @@ public class PokerHandEvaluatorTest {
 
         PokerHand pokerHand = new PokerHand(cards);
 
-        PokerHandEvaluator pokerHandEvaluator = new PokerHandEvaluator(pokerHand);
-        EvaluationResult evaluationResult = pokerHandEvaluator.evaluate();
+        HandEvaluator handEvaluator = new HandEvaluator(pokerHand);
+        EvaluationResult evaluationResult = handEvaluator.evaluate();
 
         int typeOfHand = evaluationResult.getPartialOrder();
         assertEquals(typeOfHand, TestConstants.PARTIAL_ORDER.STRAIGHT_FLUSH.getValue());
@@ -346,8 +346,8 @@ public class PokerHandEvaluatorTest {
 
         PokerHand pokerHand = new PokerHand(cards);
 
-        PokerHandEvaluator pokerHandEvaluator = new PokerHandEvaluator(pokerHand);
-        EvaluationResult evaluationResult = pokerHandEvaluator.evaluate();
+        HandEvaluator handEvaluator = new HandEvaluator(pokerHand);
+        EvaluationResult evaluationResult = handEvaluator.evaluate();
         int typeOfHand = evaluationResult.getPartialOrder();
         int primaryValue = evaluationResult.getPrimary();
         int secondaryValue = evaluationResult.getSecondary();
@@ -374,8 +374,8 @@ public class PokerHandEvaluatorTest {
 
         PokerHand pokerHand = new PokerHand(cards);
 
-        PokerHandEvaluator pokerHandEvaluator = new PokerHandEvaluator(pokerHand);
-        EvaluationResult evaluationResult = pokerHandEvaluator.evaluate();
+        HandEvaluator handEvaluator = new HandEvaluator(pokerHand);
+        EvaluationResult evaluationResult = handEvaluator.evaluate();
         int typeOfHand = evaluationResult.getPartialOrder();
         assertEquals(typeOfHand, TestConstants.PARTIAL_ORDER.STRAIGHT.getValue());
     }
@@ -396,8 +396,8 @@ public class PokerHandEvaluatorTest {
 
         PokerHand pokerHand = new PokerHand(cards);
 
-        PokerHandEvaluator pokerHandEvaluator = new PokerHandEvaluator(pokerHand);
-        EvaluationResult evaluationResult = pokerHandEvaluator.evaluate();
+        HandEvaluator handEvaluator = new HandEvaluator(pokerHand);
+        EvaluationResult evaluationResult = handEvaluator.evaluate();
         int typeOfHand = evaluationResult.getPartialOrder();
         assertEquals(typeOfHand, TestConstants.PARTIAL_ORDER.FLUSH.getValue());
     }
@@ -418,8 +418,8 @@ public class PokerHandEvaluatorTest {
 
         PokerHand pokerHand = new PokerHand(cards);
 
-        PokerHandEvaluator pokerHandEvaluator = new PokerHandEvaluator(pokerHand);
-        EvaluationResult evaluationResult = pokerHandEvaluator.evaluate();
+        HandEvaluator handEvaluator = new HandEvaluator(pokerHand);
+        EvaluationResult evaluationResult = handEvaluator.evaluate();
         int typeOfHand = evaluationResult.getPartialOrder();
         assertEquals(typeOfHand, TestConstants.PARTIAL_ORDER.FULL_HOUSE.getValue());
     }
@@ -440,8 +440,8 @@ public class PokerHandEvaluatorTest {
 
         PokerHand pokerHand = new PokerHand(cards);
 
-        PokerHandEvaluator pokerHandEvaluator = new PokerHandEvaluator(pokerHand);
-        EvaluationResult evaluationResult = pokerHandEvaluator.evaluate();
+        HandEvaluator handEvaluator = new HandEvaluator(pokerHand);
+        EvaluationResult evaluationResult = handEvaluator.evaluate();
         int typeOfHand = evaluationResult.getPartialOrder();
         assertEquals(typeOfHand, TestConstants.PARTIAL_ORDER.THREE_OF_A_KIND.getValue());
     }
@@ -462,8 +462,8 @@ public class PokerHandEvaluatorTest {
 
         PokerHand pokerHand = new PokerHand(cards);
 
-        PokerHandEvaluator pokerHandEvaluator = new PokerHandEvaluator(pokerHand);
-        EvaluationResult evaluationResult = pokerHandEvaluator.evaluate();
+        HandEvaluator handEvaluator = new HandEvaluator(pokerHand);
+        EvaluationResult evaluationResult = handEvaluator.evaluate();
         int typeOfHand = evaluationResult.getPartialOrder();
         assertEquals(typeOfHand, TestConstants.PARTIAL_ORDER.TWO_PAIRS.getValue());
     }
@@ -484,8 +484,8 @@ public class PokerHandEvaluatorTest {
 
         PokerHand pokerHand = new PokerHand(cards);
 
-        PokerHandEvaluator pokerHandEvaluator = new PokerHandEvaluator(pokerHand);
-        EvaluationResult evaluationResult = pokerHandEvaluator.evaluate();
+        HandEvaluator handEvaluator = new HandEvaluator(pokerHand);
+        EvaluationResult evaluationResult = handEvaluator.evaluate();
         int typeOfHand = evaluationResult.getPartialOrder();
         assertEquals(typeOfHand, TestConstants.PARTIAL_ORDER.PAIR.getValue());
     }
@@ -506,8 +506,8 @@ public class PokerHandEvaluatorTest {
 
         PokerHand pokerHand = new PokerHand(cards);
 
-        PokerHandEvaluator pokerHandEvaluator = new PokerHandEvaluator(pokerHand);
-        EvaluationResult evaluationResult = pokerHandEvaluator.evaluate();
+        HandEvaluator handEvaluator = new HandEvaluator(pokerHand);
+        EvaluationResult evaluationResult = handEvaluator.evaluate();
         int typeOfHand = evaluationResult.getPartialOrder();
         assertEquals(typeOfHand, TestConstants.PARTIAL_ORDER.HIGH_CARD.getValue());
     }

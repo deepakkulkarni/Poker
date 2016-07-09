@@ -1,6 +1,6 @@
-package com.task.entity;
+package com.task.poker.entity;
 
-import com.task.util.Constants;
+import com.task.poker.util.Constants;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -26,6 +26,10 @@ public class Card {
         return cards;
     }
 
+    public String getSuite() {
+        return suite;
+    }
+
     public String getRank() {
         return rank;
     }
@@ -34,15 +38,31 @@ public class Card {
         return Constants.RANK.valueOf(this.rank).getValue();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Card card = (Card) o;
+
+        if (!suite.equals(card.suite)) return false;
+        return rank.equals(card.rank);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = suite.hashCode();
+        result = 31 * result + rank.hashCode();
+        return result;
+    }
+
     public int getSuiteValue() {
         return Constants.SUITE.valueOf(this.suite).getValue();
     }
 
     @Override
     public String toString() {
-        return "Card{" +
-                "suite='" + suite + '\'' +
-                ", rank='" + rank + '\'' +
-                '}';
+        return "Card{" + "suite='" + suite + '\'' + ", rank='" + rank + '\'' + '}';
     }
 }

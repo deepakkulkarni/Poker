@@ -1,9 +1,9 @@
-package com.task.entity.hand;
+package com.task.poker.entity.hand;
 
-import com.task.entity.Card;
-import com.task.entity.PokerHand;
-import com.task.evaluator.EvaluationResult;
-import com.task.util.Constants;
+import com.task.poker.entity.Card;
+import com.task.poker.entity.PokerHand;
+import com.task.poker.evaluator.EvaluationResult;
+import com.task.poker.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;

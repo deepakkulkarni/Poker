@@ -1,4 +1,4 @@
-package com.task.util;
+package com.task.poker.util;
 
 /**
  * Created by user on 6/26/2016.
@@ -6,10 +6,16 @@ package com.task.util;
 public class Constants {
 
     public enum SUITE {
-        HEART(1), DIAMOND(2), SPADE(3), CLUB(4);
+        HEART("H", 1), DIAMOND("D", 2), SPADE("S", 3), CLUB("C", 4);
         private final int value;
+        private final String abbreviation;
 
-        SUITE(int value) {
+        public String getAbbreviation() {
+            return abbreviation;
+        }
+
+        SUITE(String abbreviation , int value) {
+            this.abbreviation = abbreviation;
             this.value = value;
         }
 
@@ -19,12 +25,18 @@ public class Constants {
     }
 
     public enum RANK {
-        TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8), NINE(9), TEN(10),
-        JACK(11), QUEEN(12), KING(13), ACE(14);
+        TWO("2",2), THREE("3",3), FOUR("4",4), FIVE("5",5), SIX("6",6), SEVEN("7",7), EIGHT("8",8), NINE("9",9), TEN("T",10),
+        JACK("J",11), QUEEN("Q",12), KING("K",13), ACE("A",14);
 
         private final int value;
+        private final String abbreviation;
 
-        RANK(int value) {
+        public String getAbbreviation() {
+            return abbreviation;
+        }
+
+        RANK(String abbreviation, int value) {
+            this.abbreviation = abbreviation;
             this.value = value;
         }
 
