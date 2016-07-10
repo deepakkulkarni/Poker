@@ -17,45 +17,55 @@ public class EvaluationResult {
     private int quaternary = -1;
     private int quinary = -1;
     private PokerHand pokerHand;
+    private boolean isEqual = false;
 
     private int partialOrder;
 
     private boolean isPartialOrder = false;
+
     public static Comparator<EvaluationResult> byPartialOrder = (evaluationResult1, evaluationResult2) -> Integer.compare(evaluationResult1.partialOrder, evaluationResult2.partialOrder);
     public static Comparator<EvaluationResult> byPrimary = (evaluationResult1, evaluationResult2) -> Integer.compare(evaluationResult1.primary, evaluationResult2.primary);
     public static Comparator<EvaluationResult> bySecondary = (evaluationResult1, evaluationResult2) -> Integer.compare(evaluationResult1.secondary, evaluationResult2.secondary);
     public static Comparator<EvaluationResult> byTertiary = (evaluationResult1, evaluationResult2) -> Integer.compare(evaluationResult1.tertiary, evaluationResult2.tertiary);
     public static Comparator<EvaluationResult> byQuatinary = (evaluationResult1, evaluationResult2) -> Integer.compare(evaluationResult1.quaternary, evaluationResult2.quaternary);
     public static Comparator<EvaluationResult> byQuinary = (evaluationResult1, evaluationResult2) -> Integer.compare(evaluationResult1.quinary, evaluationResult2.quinary);
-
     public EvaluationResult getWinner(List<EvaluationResult> evaluationResults) {
 
         EvaluationResult evaluationResult = null;
         if (evaluationResults.get(0).getPartialOrder() != evaluationResults.get(1).getPartialOrder()) {
             Collections.sort(evaluationResults, EvaluationResult.byPartialOrder);
-            evaluationResult = evaluationResults.get(1);
+            evaluationResult = evaluationResults.get(0);
+            return evaluationResult;
         }
-        if (evaluationResults.get(0).getPrimary() != evaluationResults.get(1).getPrimary()) {
+        else if (evaluationResults.get(0).getPrimary() != evaluationResults.get(1).getPrimary()) {
             Collections.sort(evaluationResults, EvaluationResult.byPrimary);
             evaluationResult = evaluationResults.get(1);
+            return evaluationResult;
         }
-        if (evaluationResults.get(0).getSecondary() != evaluationResults.get(1).getSecondary()) {
+        else if (evaluationResults.get(0).getSecondary() != evaluationResults.get(1).getSecondary()) {
             Collections.sort(evaluationResults, EvaluationResult.bySecondary);
             evaluationResult = evaluationResults.get(1);
+            return evaluationResult;
         }
-        if (evaluationResults.get(0).getTertiary() != evaluationResults.get(1).getTertiary()) {
+        else if (evaluationResults.get(0).getTertiary() != evaluationResults.get(1).getTertiary()) {
             Collections.sort(evaluationResults, EvaluationResult.byTertiary);
             evaluationResult = evaluationResults.get(1);
+            return evaluationResult;
         }
-        if (evaluationResults.get(0).getQuaternary() != evaluationResults.get(1).getQuaternary()) {
+        else if (evaluationResults.get(0).getQuaternary() != evaluationResults.get(1).getQuaternary()) {
             Collections.sort(evaluationResults, EvaluationResult.byQuatinary);
             evaluationResult = evaluationResults.get(1);
+            return evaluationResult;
         }
-        if (evaluationResults.get(0).getQuinary() != evaluationResults.get(1).getQuinary()) {
+        else if (evaluationResults.get(0).getQuinary() != evaluationResults.get(1).getQuinary()) {
             Collections.sort(evaluationResults, EvaluationResult.byQuinary);
             evaluationResult = evaluationResults.get(1);
+            return evaluationResult;
+        }else{
+            evaluationResult = evaluationResults.get(0);
+            evaluationResult.setEqual(true);
+            return evaluationResult;
         }
-        return evaluationResult;
     }
 
     public boolean isPartialOrder() {
@@ -120,5 +130,13 @@ public class EvaluationResult {
 
     public void setPokerHand(PokerHand pokerHand) {
         this.pokerHand = pokerHand;
+    }
+
+    public boolean isEqual() {
+        return isEqual;
+    }
+
+    public void setEqual(boolean equal) {
+        isEqual = equal;
     }
 }

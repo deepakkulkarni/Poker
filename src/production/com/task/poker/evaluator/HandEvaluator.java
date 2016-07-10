@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class HandEvaluator {
 
-    private PokerHand pokerHand;
+    private final PokerHand pokerHand;
     private List<PokerHand> typeOfHands = new ArrayList();
 
     public HandEvaluator(PokerHand pokerHand) {

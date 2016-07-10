@@ -13,11 +13,12 @@ import java.util.List;
 public class PokerHand implements Evaluator {
 
     public static final int size = 5;
+
     private final List<Card> cards;
+
     private List<Card> originalCards;
     private String handType;
     private final Comparator<Card> byRank = (c1, c2) -> Integer.compare(Constants.RANK.valueOf(c1.getRank()).getValue(), Constants.RANK.valueOf(c2.getRank()).getValue());
-
     public PokerHand(List<Card> cards) {
         this.cards = cards;
         this.originalCards = new ArrayList<>(cards);
@@ -49,5 +50,9 @@ public class PokerHand implements Evaluator {
 
     public void listCards() {
         originalCards.forEach(System.out::println);
+    }
+
+    public List<Card> getOriginalCards() {
+        return originalCards;
     }
 }
