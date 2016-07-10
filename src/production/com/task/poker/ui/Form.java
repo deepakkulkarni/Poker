@@ -8,6 +8,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by user on 7/6/2016.
@@ -65,16 +67,18 @@ public class Form {
         distributePanel.setLayout(new GridBagLayout());
 
         deck1.setSelected(true);
-        deck1.addActionListener(e -> checkBox1Clicked());
+        deck1.setEnabled(false);
         GridBagConstraints gc = new GridBagConstraints();
-        gc.insets = new Insets(5, 0, 5, 20);
+        gc.insets = new Insets(5, 0, 5, 5);
         gc.gridx = 0;
         gc.gridy = 0;
+        gc.fill = GridBagConstraints.HORIZONTAL;
+        gc.weightx = 0.0;
         distributePanel.add(deck1, gc);
 
         deck2.addActionListener(e -> checkBox2Clicked());
         gc = new GridBagConstraints();
-        gc.insets = new Insets(5, 0, 5, 20);
+        gc.insets = new Insets(5, 0, 5, 25);
         gc.gridx = 1;
         gc.gridy = 0;
         distributePanel.add(deck2, gc);
@@ -85,16 +89,14 @@ public class Form {
         distribute.setPreferredSize(new Dimension(200, 35));
 
         gc = new GridBagConstraints();
-        gc.insets = new Insets(5, 0, 5, 0);
-        gc.gridx = 4;
+        gc.insets = new Insets(5, 25, 5, 20);
+        gc.gridx = 2;
         gc.gridy = 0;
+        gc.weightx = 0.1;
+        gc.anchor = GridBagConstraints.WEST;
         distributePanel.add(distribute, gc);
 
         pane.add(distributePanel, gBC);
-    }
-
-    public static void checkBox1Clicked() {
-        isdeck1Selected = deck1.isSelected();
     }
 
     public static void checkBox2Clicked() {
@@ -102,12 +104,103 @@ public class Form {
     }
 
     private static boolean validate() {
+        if (!validateBlankCards()) return false;
+        if (!validateCardsLength()) return false;
+        if (!validateData()) return false;
+        if (!duplicateCardHand1Validation()) return false;
+        if (!duplicateCardHand2Validation()) return false;
+        return true;
+    }
+
+    private static boolean validateBlankCards() {
         if (card1.getText().equals("") || card2.getText().equals("") || card3.getText().equals("") || card4.getText().equals("") || card5.getText().equals("")
                 || card6.getText().equals("") || card7.getText().equals("") || card8.getText().equals("") || card9.getText().equals("") || card10.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Please enter all card details.", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         return true;
+    }
+
+    private static boolean validateCardsLength() {
+        if (card1.getText().length() != 2 || card2.getText().length() != 2 || card3.getText().length() != 2 || card4.getText().length() != 2 || card5.getText().length() != 2
+                || card6.getText().length() != 2 || card7.getText().length() != 2 || card8.getText().length() != 2 || card9.getText().length() != 2 || card10.getText().length() != 2) {
+            JOptionPane.showMessageDialog(null, "Card details should contain only 2 characters.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    private static boolean duplicateCardHand1Validation() {
+
+        List<JTextField> hand1 = new ArrayList();
+        hand1.add(card1);
+        hand1.add(card2);
+        hand1.add(card3);
+        hand1.add(card4);
+        hand1.add(card5);
+
+
+        for (int idx = 0; idx < hand1.size(); idx++) {
+            int count = 0;
+            for (int idy = 0; idy < hand1.size(); idy++) {
+                if (idx != idy && hand1.get(idx).getText().equals(hand1.get(idy).getText())) {
+                    count++;
+                }
+            }
+            if (count == 1) {
+                JOptionPane.showMessageDialog(null, "Hand 1 contains duplicate cards.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static boolean duplicateCardHand2Validation() {
+
+        List<JTextField> hand2 = new ArrayList();
+        hand2.add(card6);
+        hand2.add(card7);
+        hand2.add(card8);
+        hand2.add(card9);
+        hand2.add(card10);
+
+        for (int idx = 0; idx < hand2.size(); idx++) {
+            int count = 0;
+            for (int idy = 0; idy < hand2.size(); idy++) {
+                if (idx != idy && hand2.get(idx).getText().equals(hand2.get(idy).getText())) {
+                    count++;
+                }
+            }
+            if (count == 1) {
+                JOptionPane.showMessageDialog(null, "Hand 2 contain duplicate cards.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean validateData() {
+        if (cardDataValidation(card1.getText())) return false;
+        if (cardDataValidation(card2.getText())) return false;
+        if (cardDataValidation(card3.getText())) return false;
+        if (cardDataValidation(card4.getText())) return false;
+        if (cardDataValidation(card5.getText())) return false;
+        if (cardDataValidation(card6.getText())) return false;
+        if (cardDataValidation(card7.getText())) return false;
+        if (cardDataValidation(card8.getText())) return false;
+        if (cardDataValidation(card9.getText())) return false;
+        if (cardDataValidation(card10.getText())) return false;
+        return true;
+    }
+
+    private static boolean cardDataValidation(String text) {
+        char data[] = text.toCharArray();
+        if (!Constants.SUITE.contains("" + data[0]) || !Constants.RANK.contains("" + data[1])) {
+            JOptionPane.showMessageDialog(null, "Invalid data at " + text, "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return true;
+        }
+        return false;
     }
 
     public static void evaluateResult() {
@@ -399,17 +492,18 @@ public class Form {
             jlabel.setText("Both hands are identical.");
         } else {
             jlabel.setText("Winner Hand : " + hand);
-            jlabel1.setText("Partial Order: " + Constants.PARTIAL_ORDER.values()[winner.getPartialOrder() - 1].toString());
-            if (winner.getPrimary() != -1)
-                jlabel2.setText("Primary Rank : " + winner.getPrimary() + " " + Constants.RANK.valueOf(winner.getPrimary()));
-            if (winner.getSecondary() != -1)
-                jlabel3.setText("Secondary Rank : " + winner.getSecondary() + " " + Constants.RANK.valueOf(winner.getSecondary()));
-            if (winner.getTertiary() != -1)
-                jlabel4.setText("Tertiary Rank : " + winner.getTertiary() + " " + Constants.RANK.valueOf(winner.getTertiary()));
-            if (winner.getQuaternary() != -1)
-                jlabel5.setText("Quaternary Rank : " + winner.getQuaternary() + " " + Constants.RANK.valueOf(winner.getQuaternary()));
-            if (winner.getQuinary() != -1)
-                jlabel6.setText("Quinary Rank : " + winner.getQuinary() + " " + Constants.RANK.valueOf(winner.getQuinary()));
         }
+        jlabel1.setText("Partial Order: " + Constants.PARTIAL_ORDER.values()[winner.getPartialOrder() - 1].toString());
+        if (winner.getPrimary() != -1)
+            jlabel2.setText("Primary Rank : " + winner.getPrimary() + " " + Constants.RANK.valueOf(winner.getPrimary()));
+        if (winner.getSecondary() != -1)
+            jlabel3.setText("Secondary Rank : " + winner.getSecondary() + " " + Constants.RANK.valueOf(winner.getSecondary()));
+        if (winner.getTertiary() != -1)
+            jlabel4.setText("Tertiary Rank : " + winner.getTertiary() + " " + Constants.RANK.valueOf(winner.getTertiary()));
+        if (winner.getQuaternary() != -1)
+            jlabel5.setText("Quaternary Rank : " + winner.getQuaternary() + " " + Constants.RANK.valueOf(winner.getQuaternary()));
+        if (winner.getQuinary() != -1)
+            jlabel6.setText("Quinary Rank : " + winner.getQuinary() + " " + Constants.RANK.valueOf(winner.getQuinary()));
     }
+
 }

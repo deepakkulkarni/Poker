@@ -10,16 +10,26 @@ public class Constants {
 
     public enum SUITE {
         HEART("H", 1), DIAMOND("D", 2), SPADE("S", 3), CLUB("C", 4);
+
         private final int value;
         private final String abbreviation;
-
-        public String getAbbreviation() {
-            return abbreviation;
-        }
 
         SUITE(String abbreviation, int value) {
             this.abbreviation = abbreviation;
             this.value = value;
+        }
+
+        public static boolean contains(String value) {
+            for (SUITE suite : SUITE.values()) {
+                if (suite.abbreviation.equals(value)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public String getAbbreviation() {
+            return abbreviation;
         }
 
         public int getValue() {
@@ -33,8 +43,12 @@ public class Constants {
 
         private final int value;
         private final String abbreviation;
-
         private static Map<Integer, RANK> map = new HashMap<Integer, RANK>();
+
+        RANK(String abbreviation, int value) {
+            this.abbreviation = abbreviation;
+            this.value = value;
+        }
 
         static {
             for (RANK rank : RANK.values()) {
@@ -50,13 +64,17 @@ public class Constants {
             return abbreviation;
         }
 
-        RANK(String abbreviation, int value) {
-            this.abbreviation = abbreviation;
-            this.value = value;
-        }
-
         public int getValue() {
             return value;
+        }
+
+        public static boolean contains(String abbreviation) {
+            for (RANK rank : RANK.values()) {
+                if (rank.abbreviation.equals(abbreviation)) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 
@@ -64,11 +82,11 @@ public class Constants {
         STRAIGHT_FLUSH(1), FOUR_OF_A_KIND(2), FULL_HOUSE(3), FLUSH(4), STRAIGHT(5), THREE_OF_A_KIND(6),
         TWO_PAIRS(7), PAIR(8), HIGH_CARD(9);
 
-        private final int value;
-
         PARTIAL_ORDER(int value) {
             this.value = value;
         }
+
+        private final int value;
 
         public int getValue() {
             return value;
