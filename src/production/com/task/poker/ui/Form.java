@@ -86,7 +86,7 @@ public class Form {
         JButton distribute = new JButton("Distribute / Redistribute");
         distribute.setFont(font);
         distribute.addActionListener(e -> distributeCards());
-        distribute.setPreferredSize(new Dimension(200, 35));
+        distribute.setPreferredSize(new Dimension(250, 35));
 
         gc = new GridBagConstraints();
         gc.insets = new Insets(5, 25, 5, 20);
@@ -458,7 +458,7 @@ public class Form {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int height = screenSize.height;
         int width = screenSize.width;
-        frame.setSize((int) (width / 1.5), (int) (height / 1.75));
+        frame.setSize((int) (width / 1.4), (int) (height / 1.9));
         frame.setLocationRelativeTo(null);
 
         addComponentsToPane(frame.getContentPane());
