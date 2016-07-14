@@ -8,6 +8,8 @@ import java.util.Map;
  */
 public class Constants {
 
+    public static final int handSize = 5;
+
     public enum SUITE {
         HEART("H", 1), DIAMOND("D", 2), SPADE("S", 3), CLUB("C", 4);
 
@@ -45,15 +47,15 @@ public class Constants {
         private final String abbreviation;
         private static Map<Integer, RANK> map = new HashMap<Integer, RANK>();
 
-        RANK(String abbreviation, int value) {
-            this.abbreviation = abbreviation;
-            this.value = value;
-        }
-
         static {
             for (RANK rank : RANK.values()) {
                 map.put(rank.value, rank);
             }
+        }
+
+        RANK(String abbreviation, int value) {
+            this.abbreviation = abbreviation;
+            this.value = value;
         }
 
         public static RANK valueOf(int value) {
@@ -82,11 +84,11 @@ public class Constants {
         STRAIGHT_FLUSH(1), FOUR_OF_A_KIND(2), FULL_HOUSE(3), FLUSH(4), STRAIGHT(5), THREE_OF_A_KIND(6),
         TWO_PAIRS(7), PAIR(8), HIGH_CARD(9);
 
+        private final int value;
+
         PARTIAL_ORDER(int value) {
             this.value = value;
         }
-
-        private final int value;
 
         public int getValue() {
             return value;

@@ -1,27 +1,31 @@
-package com.task.poker.entity.hand;
+package com.task.poker.core.entity.hand;
 
-import com.task.poker.entity.Card;
-import com.task.poker.entity.PokerHand;
-import com.task.poker.evaluator.EvaluationResult;
+import com.task.poker.core.entity.Card;
 import com.task.poker.util.Constants;
+import com.task.poker.core.evaluator.EvaluationResult;
 
 import java.util.List;
 
 /**
  * Created by user on 6/30/2016.
  */
-public class HighCard extends PokerHand {
+public class StraightFlush extends PokerHand {
 
-    public static final String handType = Constants.PARTIAL_ORDER.HIGH_CARD.toString();
+    public static final String handType = Constants.PARTIAL_ORDER.STRAIGHT_FLUSH.toString();
 
-
-    public HighCard(List<Card> cards) {
+    public StraightFlush(List<Card> cards) {
         super(cards, handType);
     }
 
-    @Override
     public EvaluationResult evaluate() {
         EvaluationResult evaluationResult = new EvaluationResult();
+        Card[] card = getSortedCardsArray();
+        for (int idx = 1; idx < card.length; idx++) {
+            if (card[idx].getSuiteValue() != card[idx - 1].getSuiteValue() || card[idx].getRankValue() - card[idx - 1].getRankValue() != 1) {
+                evaluationResult.setPartialOrder(false);
+                return evaluationResult;
+            }
+        }
         evaluationResult.setPartialOrder(true);
         setCardRankOrder(evaluationResult);
         return evaluationResult;

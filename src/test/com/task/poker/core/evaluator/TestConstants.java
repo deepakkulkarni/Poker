@@ -1,4 +1,4 @@
-package com.task.poker.evaluator;
+package com.task.poker.core.evaluator;
 
 /**
  * Created by user on 6/26/2016.

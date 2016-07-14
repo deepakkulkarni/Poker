@@ -1,4 +1,4 @@
-package com.task.poker.entity;
+package com.task.poker.core.entity;
 
 import com.task.poker.util.Constants;
 
@@ -11,10 +11,9 @@ import java.util.List;
  */
 public class Card {
 
+    public static final Comparator<Card> byRank = (c1, c2) -> Integer.compare(Constants.RANK.valueOf(c1.getRank()).getValue(), Constants.RANK.valueOf(c2.getRank()).getValue());
     private final String suite;
     private final String rank;
-
-    public static final Comparator<Card> byRank = (c1, c2) -> Integer.compare(Constants.RANK.valueOf(c1.getRank()).getValue(), Constants.RANK.valueOf(c2.getRank()).getValue());
 
     public Card(String suite, String rank) {
         this.suite = suite;
@@ -24,14 +23,6 @@ public class Card {
     public static List<Card> sortByRank(List<Card> cards) {
         Collections.sort(cards, byRank);
         return cards;
-    }
-
-    public String getSuite() {
-        return suite;
-    }
-
-    public String getRank() {
-        return rank;
     }
 
     public int getRankValue() {
@@ -63,6 +54,14 @@ public class Card {
 
     @Override
     public String toString() {
-        return "Card{" + "suite='" + suite + '\'' + ", rank='" + rank + '\'' + '}';
+        return Constants.SUITE.valueOf(this.suite).getAbbreviation() + Constants.RANK.valueOf(this.rank).getAbbreviation();
+    }
+
+    public String getSuite() {
+        return suite;
+    }
+
+    public String getRank() {
+        return rank;
     }
 }

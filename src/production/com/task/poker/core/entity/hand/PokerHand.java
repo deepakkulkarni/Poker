@@ -1,7 +1,9 @@
-package com.task.poker.entity;
+package com.task.poker.core.entity.hand;
 
-import com.task.poker.evaluator.Evaluator;
+import com.task.poker.core.entity.Card;
+import com.task.poker.core.evaluator.Evaluator;
 import com.task.poker.util.Constants;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -12,13 +14,13 @@ import java.util.List;
  */
 public class PokerHand implements Evaluator {
 
-    public static final int size = 5;
+    private static final Logger logger = Logger.getLogger(PokerHand.class);
 
+    private final Comparator<Card> byRank = (c1, c2) -> Integer.compare(Constants.RANK.valueOf(c1.getRank()).getValue(), Constants.RANK.valueOf(c2.getRank()).getValue());
     private final List<Card> cards;
-
     private List<Card> originalCards;
     private String handType;
-    private final Comparator<Card> byRank = (c1, c2) -> Integer.compare(Constants.RANK.valueOf(c1.getRank()).getValue(), Constants.RANK.valueOf(c2.getRank()).getValue());
+
     public PokerHand(List<Card> cards) {
         this.cards = cards;
         this.originalCards = new ArrayList<>(cards);
@@ -36,20 +38,20 @@ public class PokerHand implements Evaluator {
         return card;
     }
 
-    public String getHandType() {
-        return handType;
-    }
-
-    public List<Card> getCards() {
-        return cards;
+    public void listCards() {
+        originalCards.forEach(card -> logger.info(card.toString()));
     }
 
     protected void sortCardsByRank() {
         getCards().sort(byRank);
     }
 
-    public void listCards() {
-        originalCards.forEach(System.out::println);
+    public String getHandType() {
+        return handType;
+    }
+
+    public List<Card> getCards() {
+        return cards;
     }
 
     public List<Card> getOriginalCards() {

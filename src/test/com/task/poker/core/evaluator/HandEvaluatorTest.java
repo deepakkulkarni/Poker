@@ -1,9 +1,8 @@
-package com.task.poker.evaluator;
+package com.task.poker.core.evaluator;
 
-import com.task.poker.entity.Card;
-import com.task.poker.entity.Deck;
-import com.task.poker.entity.PokerHand;
-import com.task.poker.entity.hand.*;
+import com.task.poker.core.entity.Deck;
+import com.task.poker.core.entity.Card;
+import com.task.poker.core.entity.hand.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -428,10 +427,10 @@ public class HandEvaluatorTest {
     public void should_Pass_When_ThreeOfAKindHand_IsDetected() {
         List<Card> cards = new ArrayList<>();
         Card card1 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.QUEEN.toString());
-        Card card2 = new Card(TestConstants.SUITE.HEART.toString(), TestConstants.RANK.FIVE.toString());
-        Card card3 = new Card(TestConstants.SUITE.CLUB.toString(), TestConstants.RANK.QUEEN.toString());
-        Card card4 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.QUEEN.toString());
-        Card card5 = new Card(TestConstants.SUITE.SPADE.toString(), TestConstants.RANK.TEN.toString());
+        Card card2 = new Card(TestConstants.SUITE.HEART.toString(), TestConstants.RANK.FOUR.toString());
+        Card card3 = new Card(TestConstants.SUITE.CLUB.toString(), TestConstants.RANK.FOUR.toString());
+        Card card4 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.FIVE.toString());
+        Card card5 = new Card(TestConstants.SUITE.SPADE.toString(), TestConstants.RANK.FOUR.toString());
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);

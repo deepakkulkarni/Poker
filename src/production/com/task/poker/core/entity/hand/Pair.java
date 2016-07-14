@@ -1,8 +1,7 @@
-package com.task.poker.entity.hand;
+package com.task.poker.core.entity.hand;
 
-import com.task.poker.entity.Card;
-import com.task.poker.entity.PokerHand;
-import com.task.poker.evaluator.EvaluationResult;
+import com.task.poker.core.entity.Card;
+import com.task.poker.core.evaluator.EvaluationResult;
 import com.task.poker.util.Constants;
 
 import java.util.ArrayList;
@@ -54,5 +53,4 @@ public class Pair extends PokerHand {
         evaluationResult.setQuaternary(Constants.RANK.valueOf(getCards().get(0).getRank()).getValue());
 
     }
-
 }

@@ -1,7 +1,6 @@
-package com.task.poker.evaluator;
+package com.task.poker.core.evaluator;
 
-import com.task.poker.entity.PokerHand;
-import com.task.poker.entity.hand.*;
+import com.task.poker.core.entity.hand.*;
 import com.task.poker.util.Constants;
 
 import java.util.ArrayList;
@@ -17,15 +16,15 @@ public class HandEvaluator {
 
     public HandEvaluator(PokerHand pokerHand) {
         this.pokerHand = pokerHand;
-        typeOfHands.add(new StraightFlush(pokerHand.getCards()));
-        typeOfHands.add(new FourOfAKind(pokerHand.getCards()));
-        typeOfHands.add(new FullHouse(pokerHand.getCards()));
-        typeOfHands.add(new Flush(pokerHand.getCards()));
-        typeOfHands.add(new Straight(pokerHand.getCards()));
-        typeOfHands.add(new ThreeOfAKind(pokerHand.getCards()));
-        typeOfHands.add(new TwoPair(pokerHand.getCards()));
-        typeOfHands.add(new Pair(pokerHand.getCards()));
-        typeOfHands.add(new HighCard(pokerHand.getCards()));
+        typeOfHands.add(new StraightFlush(this.pokerHand.getCards()));
+        typeOfHands.add(new FourOfAKind(this.pokerHand.getCards()));
+        typeOfHands.add(new FullHouse(this.pokerHand.getCards()));
+        typeOfHands.add(new Flush(this.pokerHand.getCards()));
+        typeOfHands.add(new Straight(this.pokerHand.getCards()));
+        typeOfHands.add(new ThreeOfAKind(this.pokerHand.getCards()));
+        typeOfHands.add(new TwoPair(this.pokerHand.getCards()));
+        typeOfHands.add(new Pair(this.pokerHand.getCards()));
+        typeOfHands.add(new HighCard(this.pokerHand.getCards()));
     }
 
     public EvaluationResult evaluate() {

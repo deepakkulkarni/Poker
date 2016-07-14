@@ -1,9 +1,8 @@
-package com.task.poker.entity.hand;
+package com.task.poker.core.entity.hand;
 
-import com.task.poker.entity.Card;
-import com.task.poker.entity.PokerHand;
-import com.task.poker.evaluator.EvaluationResult;
+import com.task.poker.core.entity.Card;
 import com.task.poker.util.Constants;
+import com.task.poker.core.evaluator.EvaluationResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +26,7 @@ public class ThreeOfAKind extends PokerHand {
         for (int idx = 0; idx < card.length; idx++) {
             int count = 0;
             triplet.clear();
-            for (int idy = 1; idy < card.length; idy++) {
+            for (int idy = 0; idy < card.length; idy++) {
                 if (card[idx].getRankValue() == card[idy].getRankValue()) {
                     count++;
                     triplet.add(card[idy]);

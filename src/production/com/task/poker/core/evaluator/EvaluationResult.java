@@ -1,6 +1,6 @@
-package com.task.poker.evaluator;
+package com.task.poker.core.evaluator;
 
-import com.task.poker.entity.PokerHand;
+import com.task.poker.core.entity.hand.PokerHand;
 
 import java.util.Collections;
 import java.util.Comparator;
