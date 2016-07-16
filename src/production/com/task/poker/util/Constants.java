@@ -9,6 +9,8 @@ import java.util.Map;
 public class Constants {
 
     public static final int handSize = 5;
+    public static final String EMPTY_STRING = "";
+    public static final String SPACE = "  ";
 
     public enum SUITE {
         HEART("H", 1), DIAMOND("D", 2), SPADE("S", 3), CLUB("C", 4);

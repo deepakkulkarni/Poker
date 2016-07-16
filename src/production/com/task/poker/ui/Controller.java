@@ -3,15 +3,21 @@ package com.task.poker.ui;
 import com.task.poker.Facade;
 import com.task.poker.core.entity.hand.PokerHand;
 import com.task.poker.core.evaluator.EvaluationResult;
-import com.task.poker.core.evaluator.HandEvaluator;
+import com.task.poker.util.Constants;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by user on 7/13/2016.
  */
 public class Controller {
+
+    public static void evaluateResult() {
+        if (!Model.validate())
+            return;
+        resetResultPanel();
+        evaluateWinner();
+    }
 
     public static void distributeCards() {
         Facade facade = new Facade();
@@ -25,7 +31,6 @@ public class Controller {
         View.card3.setText(hand[2]);
         View.card4.setText(hand[3]);
         View.card5.setText(hand[4]);
-
         View.card6.setText(hand[5]);
         View.card7.setText(hand[6]);
         View.card8.setText(hand[7]);
@@ -53,36 +58,22 @@ public class Controller {
         return input;
     }
 
-    public static void evaluateResult() {
-        if (!Model.validate())
-            return;
-        View.result.setText("");
-        View.partialOrder.setText("");
-        View.primary.setText("");
-        View.secondary.setText("");
-        View.tertiary.setText("");
-        View.quaternary.setText("");
-        View.quinary.setText("");
-        evaluateWinner();
-    }
-
-    public static void evaluateWinner() {
+    private static void evaluateWinner() {
         Facade facade = new Facade();
         List<PokerHand> pokerHands = facade.composeInput();
-        List<EvaluationResult> evaluationResults = new ArrayList<>();
-
-        for (PokerHand pokerHand : pokerHands) {
-            HandEvaluator handEvaluator = new HandEvaluator(pokerHand);
-            EvaluationResult evaluationResult = handEvaluator.evaluate();
-            evaluationResult.setPokerHand(pokerHand);
-            evaluationResults.add(evaluationResult);
-        }
-
-        EvaluationResult evaluationResult = new EvaluationResult();
-        EvaluationResult winner = evaluationResult.getWinner(evaluationResults);
-
-        Model.setResult(facade.getWinnerHand(winner.getPokerHand()), winner);
+        EvaluationResult winner = facade.getEvaluationResult(pokerHands);
+        Model.setResult(facade.getWinnerHandDetails(winner.getPokerHand()), winner);
         facade.printResultToConsoleAndFile(winner);
+    }
+
+    private static void resetResultPanel() {
+        View.result.setText(Constants.EMPTY_STRING);
+        View.partialOrder.setText(Constants.EMPTY_STRING);
+        View.primary.setText(Constants.EMPTY_STRING);
+        View.secondary.setText(Constants.EMPTY_STRING);
+        View.tertiary.setText(Constants.EMPTY_STRING);
+        View.quaternary.setText(Constants.EMPTY_STRING);
+        View.quinary.setText(Constants.EMPTY_STRING);
     }
 
     public static void checkBox2Clicked() {

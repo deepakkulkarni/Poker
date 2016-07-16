@@ -51,13 +51,11 @@ public class View {
     private static final String DISTRIBUTE_BUTTON_NAME = "DISTRIBUTE / REDISTRIBUTE";
 
     public static void launchGUI() {
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    createAndShowGUI();
-                } catch (Exception e) {
-                    logger.error("Error launching GUI", e);
-                }
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            try {
+                createAndShowGUI();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
@@ -88,33 +86,6 @@ public class View {
         makeInformationPanel(pane);
         makeEvaluatePanel(pane);
         makeResultPanel(pane);
-    }
-
-    private static void makeInformationPanel(Container pane) {
-
-        GridBagConstraints gBC = new GridBagConstraints();
-        gBC.insets = new Insets(5, 15, 15, 15);
-        JPanel evaluatePanel = new JPanel();
-        TitledBorder title = BorderFactory.createTitledBorder(upperEtched, "", TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION, headerFont);
-        evaluatePanel.setBorder(title);
-        gBC.gridx = 0;
-        gBC.gridy = 3;
-        gBC.weightx = 1;
-        gBC.gridwidth = 2;
-        gBC.fill = GridBagConstraints.BOTH;
-
-        Font font = new Font("Courier", Font.ITALIC, 11);
-        JLabel information = new JLabel();
-        information.setFont(font);
-        information.setText("First character in card denotes suite (S,D,H,C) while the second character denotes rank (2,3,4,5,6,7,8,9,10,J,Q,K,A)");
-        GridBagConstraints gc = new GridBagConstraints();
-        gc.insets = new Insets(5, 0, 25, 0);
-        gc.gridx = 0;
-        gc.gridy = 0;
-        gc.fill = GridBagConstraints.BOTH;
-        evaluatePanel.add(information, gc);
-
-        pane.add(evaluatePanel, gBC);
     }
 
     private static void makeDistributePanel(Container pane) {
@@ -277,6 +248,33 @@ public class View {
         hand2Panel.add(card10, gc);
 
         pane.add(hand2Panel, gBC);
+    }
+
+    private static void makeInformationPanel(Container pane) {
+
+        GridBagConstraints gBC = new GridBagConstraints();
+        gBC.insets = new Insets(5, 15, 15, 15);
+        JPanel evaluatePanel = new JPanel();
+        TitledBorder title = BorderFactory.createTitledBorder(upperEtched, "", TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION, headerFont);
+        evaluatePanel.setBorder(title);
+        gBC.gridx = 0;
+        gBC.gridy = 3;
+        gBC.weightx = 1;
+        gBC.gridwidth = 2;
+        gBC.fill = GridBagConstraints.BOTH;
+
+        Font font = new Font("Courier", Font.ITALIC, 11);
+        JLabel information = new JLabel();
+        information.setFont(font);
+        information.setText("First character in card denotes suite (S,D,H,C) while the second character denotes rank (2,3,4,5,6,7,8,9,10,J,Q,K,A)");
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.insets = new Insets(5, 0, 25, 0);
+        gc.gridx = 0;
+        gc.gridy = 0;
+        gc.fill = GridBagConstraints.BOTH;
+        evaluatePanel.add(information, gc);
+
+        pane.add(evaluatePanel, gBC);
     }
 
     private static void makeEvaluatePanel(Container pane) {

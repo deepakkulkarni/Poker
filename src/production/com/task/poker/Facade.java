@@ -2,6 +2,7 @@ package com.task.poker;
 
 import com.task.poker.core.entity.Card;
 import com.task.poker.core.entity.Deck;
+import com.task.poker.core.evaluator.HandEvaluator;
 import com.task.poker.ui.Controller;
 import com.task.poker.ui.View;
 import com.task.poker.util.Constants;
@@ -22,6 +23,20 @@ public class Facade {
 
     public void launchGUI() {
         View.launchGUI();
+    }
+
+    public static EvaluationResult getEvaluationResult(List<PokerHand> pokerHands) {
+        List<EvaluationResult> evaluationResults = new ArrayList<>();
+
+        for (PokerHand pokerHand : pokerHands) {
+            HandEvaluator handEvaluator = new HandEvaluator(pokerHand);
+            EvaluationResult evaluationResult = handEvaluator.evaluate();
+            evaluationResult.setPokerHand(pokerHand);
+            evaluationResults.add(evaluationResult);
+        }
+
+        EvaluationResult evaluationResult = new EvaluationResult();
+        return evaluationResult.getWinner(evaluationResults);
     }
 
     public String[] getHandsWithOneDeck() {
@@ -81,13 +96,13 @@ public class Facade {
         logger.info("-------------------------------------------------------------------------------------");
     }
 
-    public String getWinnerHand(PokerHand winnerHand) {
+    public String getWinnerHandDetails(PokerHand winnerHand) {
         StringBuffer buffer = new StringBuffer();
         for (Card card : winnerHand.getOriginalCards()) {
             String suite = Constants.SUITE.valueOf(card.getSuite()).getAbbreviation();
             String rank = Constants.RANK.valueOf(card.getRank()).getAbbreviation();
             buffer.append(suite + rank);
-            buffer.append("     ");
+            buffer.append(Constants.SPACE + Constants.SPACE + Constants.SPACE);
         }
         return buffer.toString();
     }
@@ -98,7 +113,7 @@ public class Facade {
                 return rank.name();
             }
         }
-        return "";
+        return Constants.EMPTY_STRING;
     }
 
     public List<PokerHand> composeInput() {
