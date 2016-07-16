@@ -33,9 +33,11 @@ public class View {
     public static final JLabel quaternary = new JLabel();
     public static final JLabel quinary = new JLabel();
     public static final Font font = new Font("Courier", Font.BOLD, 12);
+    public static final Font headerFont = new Font("Courier", Font.BOLD, 13);
     public static final JCheckBox deck1 = new JCheckBox("Deck 1");
     public static final JCheckBox deck2 = new JCheckBox("Deck 2");
     public static final Border lowerEtched = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
+    public static final Border upperEtched = BorderFactory.createBevelBorder(BevelBorder.RAISED);
     public static final JPanel resultPanel = new JPanel();
     public static boolean isDeck1Selected = true;
     public static boolean isDeck2Selected = false;
@@ -45,8 +47,8 @@ public class View {
     private static final String RESULT_PANEL_NAME = "RESULT";
     private static final String HAND1_PANEL_NAME = "Hand 1";
     private static final String HAND2_PANEL_NAME = "Hand 2";
-    private static final String EVALUATE_RESULT_BUTTON_NAME = "Evaluate Result";
-    private static final String DISTRIBUTE_BUTTON_NAME = "Distribute / Redistribute";
+    private static final String EVALUATE_RESULT_BUTTON_NAME = "EVALUATE RESULT";
+    private static final String DISTRIBUTE_BUTTON_NAME = "DISTRIBUTE / REDISTRIBUTE";
 
     public static void launchGUI() {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -72,7 +74,7 @@ public class View {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int height = screenSize.height;
         int width = screenSize.width;
-        frame.setSize((int) (width / 1.3), (int) (height / 1.9));
+        frame.setSize((int) (width / 1.2), (int) (height / 1.6));
         frame.setLocationRelativeTo(null);
         addComponentsToPane(frame.getContentPane());
         frame.setVisible(true);
@@ -83,8 +85,36 @@ public class View {
         makeDistributePanel(pane);
         makeHand1Panel(pane);
         makeHand2Panel(pane);
+        makeInformationPanel(pane);
         makeEvaluatePanel(pane);
         makeResultPanel(pane);
+    }
+
+    private static void makeInformationPanel(Container pane) {
+
+        GridBagConstraints gBC = new GridBagConstraints();
+        gBC.insets = new Insets(5, 15, 15, 15);
+        JPanel evaluatePanel = new JPanel();
+        TitledBorder title = BorderFactory.createTitledBorder(upperEtched, "", TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION, headerFont);
+        evaluatePanel.setBorder(title);
+        gBC.gridx = 0;
+        gBC.gridy = 3;
+        gBC.weightx = 1;
+        gBC.gridwidth = 2;
+        gBC.fill = GridBagConstraints.BOTH;
+
+        Font font = new Font("Courier", Font.ITALIC, 11);
+        JLabel information = new JLabel();
+        information.setFont(font);
+        information.setText("First character in card denotes suite (S,D,H,C) while the second character denotes rank (2,3,4,5,6,7,8,9,10,J,Q,K,A)");
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.insets = new Insets(5, 0, 25, 0);
+        gc.gridx = 0;
+        gc.gridy = 0;
+        gc.fill = GridBagConstraints.BOTH;
+        evaluatePanel.add(information, gc);
+
+        pane.add(evaluatePanel, gBC);
     }
 
     private static void makeDistributePanel(Container pane) {
@@ -92,7 +122,7 @@ public class View {
         gBC.insets = new Insets(5, 15, 0, 15);
         JPanel distributePanel = new JPanel();
 
-        TitledBorder title = BorderFactory.createTitledBorder(lowerEtched, DISTRIBUTE_PANEL_NAME, TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION, font);
+        TitledBorder title = BorderFactory.createTitledBorder(lowerEtched, DISTRIBUTE_PANEL_NAME, TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION, headerFont);
         distributePanel.setBorder(title);
         gBC.gridx = 0;
         gBC.gridy = 0;
@@ -122,7 +152,7 @@ public class View {
         JButton distribute = new JButton(DISTRIBUTE_BUTTON_NAME);
         distribute.setFont(font);
         distribute.addActionListener(e -> Controller.distributeCards());
-        distribute.setPreferredSize(new Dimension(250, 35));
+        distribute.setPreferredSize(new Dimension(250, 40));
 
         gc = new GridBagConstraints();
         gc.insets = new Insets(5, 25, 5, 20);
@@ -138,7 +168,7 @@ public class View {
     private static void makeHand1Panel(Container pane) {
 
         JPanel hand1Panel = new JPanel();
-        TitledBorder title = BorderFactory.createTitledBorder(lowerEtched, HAND1_PANEL_NAME, TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION, font);
+        TitledBorder title = BorderFactory.createTitledBorder(lowerEtched, HAND1_PANEL_NAME, TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION, headerFont);
         hand1Panel.setBorder(title);
         GridBagConstraints gBC = new GridBagConstraints();
         gBC.insets = new Insets(15, 15, 15, 15);
@@ -197,7 +227,7 @@ public class View {
         GridBagConstraints gBC = new GridBagConstraints();
         gBC.insets = new Insets(15, 15, 15, 15);
         JPanel hand2Panel = new JPanel();
-        TitledBorder title = BorderFactory.createTitledBorder(lowerEtched, HAND2_PANEL_NAME, TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION, font);
+        TitledBorder title = BorderFactory.createTitledBorder(lowerEtched, HAND2_PANEL_NAME, TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION, headerFont);
         hand2Panel.setBorder(title);
         gBC.gridx = 1;
         gBC.gridy = 1;
@@ -254,18 +284,18 @@ public class View {
         gBC.insets = new Insets(0, 15, 0, 15);
         JPanel evaluatePanel = new JPanel();
         gBC.gridx = 0;
-        gBC.gridy = 3;
+        gBC.gridy = 4;
         gBC.weightx = 1;
         gBC.weighty = 0.1;
         gBC.gridwidth = 2;
         gBC.fill = GridBagConstraints.BOTH;
 
         JButton evaluate = new JButton(EVALUATE_RESULT_BUTTON_NAME);
-        evaluate.setFont(font);
+        evaluate.setFont(headerFont);
         evaluate.addActionListener(e -> Controller.evaluateResult());
-        evaluate.setPreferredSize(new Dimension(200, 50));
+        evaluate.setPreferredSize(new Dimension(350, 50));
         GridBagConstraints gc = new GridBagConstraints();
-        gc.insets = new Insets(5, 0, 25, 0);
+        gc.insets = new Insets(5, 0, 20, 0);
         gc.gridx = 3;
         gc.gridy = 0;
         evaluatePanel.add(evaluate, gc);
@@ -277,11 +307,11 @@ public class View {
         GridBagConstraints gBC = new GridBagConstraints();
         gBC.insets = new Insets(5, 15, 15, 15);
 
-        TitledBorder title = BorderFactory.createTitledBorder(lowerEtched, RESULT_PANEL_NAME, TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION, font);
+        TitledBorder title = BorderFactory.createTitledBorder(lowerEtched, RESULT_PANEL_NAME, TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION, headerFont);
         resultPanel.setBorder(title);
 
         gBC.gridx = 0;
-        gBC.gridy = 4;
+        gBC.gridy = 5;
         gBC.weightx = 1;
         gBC.weighty = 1;
         gBC.gridwidth = 2;
@@ -293,6 +323,7 @@ public class View {
         gc.insets = new Insets(0, 15, 8, 15);
         gc.gridx = 0;
         gc.gridy = 0;
+        gc.weightx = 0.5;
         gc.fill = GridBagConstraints.BOTH;
         resultPanel.add(result, gc);
 
@@ -300,7 +331,7 @@ public class View {
         gc.insets = new Insets(5, 15, 8, 15);
         gc.gridx = 0;
         gc.gridy = 1;
-        gc.weightx = 1;
+        gc.weightx = 0.5;
         gc.fill = GridBagConstraints.BOTH;
         resultPanel.add(partialOrder, gc);
 
@@ -309,7 +340,6 @@ public class View {
         gc.gridx = 1;
         gc.gridy = 0;
         gc.weightx = 1;
-        gc.fill = GridBagConstraints.BOTH;
         resultPanel.add(primary, gc);
 
         gc = new GridBagConstraints();
@@ -317,7 +347,6 @@ public class View {
         gc.gridx = 1;
         gc.gridy = 1;
         gc.weightx = 1;
-        gc.fill = GridBagConstraints.BOTH;
         resultPanel.add(secondary, gc);
 
         gc = new GridBagConstraints();
@@ -325,7 +354,6 @@ public class View {
         gc.gridx = 2;
         gc.gridy = 0;
         gc.weightx = 1;
-        gc.fill = GridBagConstraints.BOTH;
         resultPanel.add(tertiary, gc);
 
         gc = new GridBagConstraints();
@@ -333,7 +361,6 @@ public class View {
         gc.gridx = 2;
         gc.gridy = 1;
         gc.weightx = 1;
-        gc.fill = GridBagConstraints.BOTH;
         resultPanel.add(quaternary, gc);
 
         gc = new GridBagConstraints();
@@ -341,7 +368,6 @@ public class View {
         gc.gridx = 3;
         gc.gridy = 0;
         gc.weightx = 1;
-        gc.fill = GridBagConstraints.BOTH;
         resultPanel.add(quinary, gc);
 
         pane.add(resultPanel, gBC);

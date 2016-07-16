@@ -18,19 +18,13 @@ public class Model {
         if (!validateData()) return false;
         if (!duplicateCardHand1Validation()) return false;
         if (!duplicateCardHand2Validation()) return false;
+        if (!duplicateCardValidationForBothHands()) return false;
         return true;
     }
 
-
     public static void setResult(String hand, EvaluationResult winner) {
-        View.result.setFont(View.font);
-        View.partialOrder.setFont(View.font);
-        View.primary.setFont(View.font);
-        View.secondary.setFont(View.font);
-        View.tertiary.setFont(View.font);
-        View.quaternary.setFont(View.font);
-        View.quinary.setFont(View.font);
-        if (winner.isEqual()) View.result.setText("Both hands are identical.");
+        setFont();
+        if (winner.isEqual()) View.result.setText("BOTH HANDS ARE IDENTICAL. PLEASE REDISTRIBUTE");
         else View.result.setText("Winner Hand : " + hand);
         View.partialOrder.setText("Partial Order : " + Constants.PARTIAL_ORDER.values()[winner.getPartialOrder() - 1].toString());
         if (winner.getPrimary() != -1)
@@ -45,19 +39,19 @@ public class Model {
             View.quinary.setText("Quinary Rank : " + Constants.RANK.valueOf(winner.getQuinary()) + "  (" + winner.getQuinary() + ")");
     }
 
-
     private static boolean validateBlankCards() {
-        if (View.card1.getText().equals("") || View.card2.getText().equals("") || View.card3.getText().equals("") || View.card4.getText().equals("") || View.card5.getText().equals("")
-                || View.card6.getText().equals("") || View.card7.getText().equals("") || View.card8.getText().equals("") || View.card9.getText().equals("") || View.card10.getText().equals("")) {
+        if (checkBlank(View.card1) || checkBlank(View.card2) || checkBlank(View.card3) || checkBlank(View.card4) || checkBlank(View.card5)
+                || checkBlank(View.card6) || checkBlank(View.card7) || checkBlank(View.card8) || checkBlank(View.card9) || checkBlank(View.card10)) {
             JOptionPane.showMessageDialog(null, "Please enter all card details.", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         return true;
     }
 
+
     private static boolean validateCardsLength() {
-        if (View.card1.getText().length() != 2 || View.card2.getText().length() != 2 || View.card3.getText().length() != 2 || View.card4.getText().length() != 2 || View.card5.getText().length() != 2
-                || View.card6.getText().length() != 2 || View.card7.getText().length() != 2 || View.card8.getText().length() != 2 || View.card9.getText().length() != 2 || View.card10.getText().length() != 2) {
+        if (checkLength(View.card1) || checkLength(View.card2) || checkLength(View.card3) || checkLength(View.card4) || checkLength(View.card5)
+                || checkLength(View.card6) || checkLength(View.card7) || checkLength(View.card8) || checkLength(View.card9) || checkLength(View.card10)) {
             JOptionPane.showMessageDialog(null, "Card details should contain only 2 characters.", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -65,53 +59,13 @@ public class Model {
     }
 
     private static boolean duplicateCardHand1Validation() {
-
-        List<JTextField> hand1 = new ArrayList();
-        hand1.add(View.card1);
-        hand1.add(View.card2);
-        hand1.add(View.card3);
-        hand1.add(View.card4);
-        hand1.add(View.card5);
-
-
-        for (int idx = 0; idx < hand1.size(); idx++) {
-            int count = 0;
-            for (int idy = 0; idy < hand1.size(); idy++) {
-                if (idx != idy && hand1.get(idx).getText().equals(hand1.get(idy).getText())) {
-                    count++;
-                }
-            }
-            if (count == 1) {
-                JOptionPane.showMessageDialog(null, "Hand 1 contains duplicate cards.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-        }
-
-        return true;
+        List<JTextField> hand1 = composeHand1();
+        return duplicateCardValidation(hand1, "Hand 1");
     }
 
     private static boolean duplicateCardHand2Validation() {
-
-        List<JTextField> hand2 = new ArrayList();
-        hand2.add(View.card6);
-        hand2.add(View.card7);
-        hand2.add(View.card8);
-        hand2.add(View.card9);
-        hand2.add(View.card10);
-
-        for (int idx = 0; idx < hand2.size(); idx++) {
-            int count = 0;
-            for (int idy = 0; idy < hand2.size(); idy++) {
-                if (idx != idy && hand2.get(idx).getText().equals(hand2.get(idy).getText())) {
-                    count++;
-                }
-            }
-            if (count == 1) {
-                JOptionPane.showMessageDialog(null, "Hand 2 contain duplicate cards.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-        }
-        return true;
+        List<JTextField> hand2 = composeHand2();
+        return duplicateCardValidation(hand2, "Hand 2");
     }
 
     private static boolean validateData() {
@@ -135,5 +89,78 @@ public class Model {
             return true;
         }
         return false;
+    }
+
+    private static boolean duplicateCardValidation(List<JTextField> hand, String handNumber) {
+        for (int idx = 0; idx < hand.size(); idx++) {
+            int count = 0;
+            for (int idy = 0; idy < hand.size(); idy++) {
+                if (idx != idy && hand.get(idx).getText().equals(hand.get(idy).getText())) {
+                    count++;
+                }
+            }
+            if (count == 1) {
+                JOptionPane.showMessageDialog(null, handNumber + " contains duplicate cards.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean duplicateCardValidationForBothHands() {
+        List<JTextField> hand1 = composeHand1();
+        List<JTextField> hand2 = composeHand2();
+
+        for (int idx = 0; idx < hand1.size(); idx++) {
+            int count = 0;
+            for (int idy = 0; idy < hand2.size(); idy++) {
+                if (idx != idy && hand1.get(idx).getText().equals(hand2.get(idy).getText())) {
+                    count++;
+                }
+            }
+            if (count == 1 && !View.isDeck2Selected) {
+                JOptionPane.showMessageDialog(null, "Only one deck is used but duplicate cards found in both hands.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static void setFont() {
+        View.result.setFont(View.font);
+        View.partialOrder.setFont(View.font);
+        View.primary.setFont(View.font);
+        View.secondary.setFont(View.font);
+        View.tertiary.setFont(View.font);
+        View.quaternary.setFont(View.font);
+        View.quinary.setFont(View.font);
+    }
+
+    private static boolean checkLength(JTextField field) {
+        return field.getText().length() != 2;
+    }
+
+    private static boolean checkBlank(JTextField field) {
+        return field.getText().equals("");
+    }
+
+    private static List<JTextField> composeHand2() {
+        List<JTextField> hand2 = new ArrayList<>();
+        hand2.add(View.card6);
+        hand2.add(View.card7);
+        hand2.add(View.card8);
+        hand2.add(View.card9);
+        hand2.add(View.card10);
+        return hand2;
+    }
+
+    private static List<JTextField> composeHand1() {
+        List<JTextField> hand1 = new ArrayList<>();
+        hand1.add(View.card1);
+        hand1.add(View.card2);
+        hand1.add(View.card3);
+        hand1.add(View.card4);
+        hand1.add(View.card5);
+        return hand1;
     }
 }

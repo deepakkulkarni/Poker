@@ -20,6 +20,10 @@ public class Facade {
 
     private static final Logger logger = Logger.getLogger(Facade.class);
 
+    public void launchGUI() {
+        View.launchGUI();
+    }
+
     public String[] getHandsWithOneDeck() {
         String hand[] = getCardsForHand(Constants.handSize * 2);
         return hand;
@@ -56,10 +60,6 @@ public class Facade {
         }
         PokerHand pokerHand = new PokerHand(cards);
         return pokerHand;
-    }
-
-    public void launchGUI() {
-        View.launchGUI();
     }
 
     public void printResultToConsoleAndFile(EvaluationResult winner) {

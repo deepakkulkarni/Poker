@@ -31,19 +31,8 @@ public class PokerHand implements Evaluator {
         this.handType = handType;
     }
 
-    protected Card[] getSortedCardsArray() {
-        List<Card> cards = Card.sortByRank(this.getCards());
-        Card card[] = new Card[cards.size()];
-        card = cards.toArray(card);
-        return card;
-    }
-
     public void listCards() {
         originalCards.forEach(card -> logger.info(card.toString()));
-    }
-
-    protected void sortCardsByRank() {
-        getCards().sort(byRank);
     }
 
     public String getHandType() {
@@ -56,5 +45,16 @@ public class PokerHand implements Evaluator {
 
     public List<Card> getOriginalCards() {
         return originalCards;
+    }
+
+    protected void sortCardsByRank() {
+        getCards().sort(byRank);
+    }
+
+    protected Card[] getSortedCardsArray() {
+        List<Card> cards = Card.sortByRank(this.getCards());
+        Card card[] = new Card[cards.size()];
+        card = cards.toArray(card);
+        return card;
     }
 }

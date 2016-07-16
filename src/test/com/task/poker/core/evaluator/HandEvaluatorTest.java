@@ -1,14 +1,14 @@
 package com.task.poker.core.evaluator;
 
-import com.task.poker.core.entity.Deck;
 import com.task.poker.core.entity.Card;
+import com.task.poker.core.entity.Deck;
 import com.task.poker.core.entity.hand.*;
+import com.task.poker.util.Constants;
 import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by user on 6/25/2016.
@@ -29,18 +29,18 @@ public class HandEvaluatorTest {
     @Test
     public void should_Pass_When_PokerHandHasFiveCards() {
         List<Card> cards = new ArrayList<>(5);
-        Card card1 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.ACE.toString());
-        Card card2 = new Card(TestConstants.SUITE.HEART.toString(), TestConstants.RANK.KING.toString());
-        Card card3 = new Card(TestConstants.SUITE.CLUB.toString(), TestConstants.RANK.JACK.toString());
-        Card card4 = new Card(TestConstants.SUITE.SPADE.toString(), TestConstants.RANK.TEN.toString());
-        Card card5 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.ACE.toString());
+        Card card1 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.ACE.toString());
+        Card card2 = new Card(Constants.SUITE.HEART.toString(), Constants.RANK.KING.toString());
+        Card card3 = new Card(Constants.SUITE.CLUB.toString(), Constants.RANK.JACK.toString());
+        Card card4 = new Card(Constants.SUITE.SPADE.toString(), Constants.RANK.TEN.toString());
+        Card card5 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.ACE.toString());
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
         cards.add(card4);
         cards.add(card5);
 
-        PokerHand pokerHand = new Straight(cards);
+        PokerHand pokerHand = new PokerHand(cards);
 
         assertEquals(pokerHand.getCards().size(), 5);
     }
@@ -48,11 +48,11 @@ public class HandEvaluatorTest {
     @Test
     public void should_Pass_When_PokerHandIsStraightFlush() {
         List<Card> cards = new ArrayList<>();
-        Card card1 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.ACE.toString());
-        Card card2 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.KING.toString());
-        Card card3 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.TEN.toString());
-        Card card4 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.JACK.toString());
-        Card card5 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.QUEEN.toString());
+        Card card1 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.ACE.toString());
+        Card card2 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.KING.toString());
+        Card card3 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.TEN.toString());
+        Card card4 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.JACK.toString());
+        Card card5 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.QUEEN.toString());
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -69,21 +69,21 @@ public class HandEvaluatorTest {
         int quinaryValue = evaluationResult.getQuinary();
 
         assertEquals(isStraightFlushHand, true);
-        assertEquals(primaryValue, TestConstants.RANK.ACE.getValue());
-        assertEquals(secondaryValue, TestConstants.RANK.KING.getValue());
-        assertEquals(tertiaryValue, TestConstants.RANK.QUEEN.getValue());
-        assertEquals(quaternaryValue, TestConstants.RANK.JACK.getValue());
-        assertEquals(quinaryValue, TestConstants.RANK.TEN.getValue());
+        assertEquals(primaryValue, Constants.RANK.ACE.getValue());
+        assertEquals(secondaryValue, Constants.RANK.KING.getValue());
+        assertEquals(tertiaryValue, Constants.RANK.QUEEN.getValue());
+        assertEquals(quaternaryValue, Constants.RANK.JACK.getValue());
+        assertEquals(quinaryValue, Constants.RANK.TEN.getValue());
     }
 
     @Test
     public void should_Pass_When_PokerHandIsFlush() {
         List<Card> cards = new ArrayList<>();
-        Card card1 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.FOUR.toString());
-        Card card2 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.EIGHT.toString());
-        Card card3 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.TEN.toString());
-        Card card4 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.SEVEN.toString());
-        Card card5 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.QUEEN.toString());
+        Card card1 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.FOUR.toString());
+        Card card2 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.EIGHT.toString());
+        Card card3 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.TEN.toString());
+        Card card4 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.SEVEN.toString());
+        Card card5 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.QUEEN.toString());
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -100,22 +100,22 @@ public class HandEvaluatorTest {
         int quinaryValue = evaluationResult.getQuinary();
 
         assertEquals(isFlushHand, true);
-        assertEquals(primaryValue, TestConstants.RANK.QUEEN.getValue());
-        assertEquals(secondaryValue, TestConstants.RANK.TEN.getValue());
-        assertEquals(tertiaryValue, TestConstants.RANK.EIGHT.getValue());
-        assertEquals(quaternaryValue, TestConstants.RANK.SEVEN.getValue());
-        assertEquals(quinaryValue, TestConstants.RANK.FOUR.getValue());
+        assertEquals(primaryValue, Constants.RANK.QUEEN.getValue());
+        assertEquals(secondaryValue, Constants.RANK.TEN.getValue());
+        assertEquals(tertiaryValue, Constants.RANK.EIGHT.getValue());
+        assertEquals(quaternaryValue, Constants.RANK.SEVEN.getValue());
+        assertEquals(quinaryValue, Constants.RANK.FOUR.getValue());
 
     }
 
     @Test
     public void should_Pass_When_PokerHandHasFourOfAKindCards() {
         List<Card> cards = new ArrayList<>();
-        Card card1 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.NINE.toString());
-        Card card2 = new Card(TestConstants.SUITE.HEART.toString(), TestConstants.RANK.NINE.toString());
-        Card card3 = new Card(TestConstants.SUITE.CLUB.toString(), TestConstants.RANK.NINE.toString());
-        Card card4 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.QUEEN.toString());
-        Card card5 = new Card(TestConstants.SUITE.SPADE.toString(), TestConstants.RANK.NINE.toString());
+        Card card1 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.NINE.toString());
+        Card card2 = new Card(Constants.SUITE.HEART.toString(), Constants.RANK.NINE.toString());
+        Card card3 = new Card(Constants.SUITE.CLUB.toString(), Constants.RANK.NINE.toString());
+        Card card4 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.QUEEN.toString());
+        Card card5 = new Card(Constants.SUITE.SPADE.toString(), Constants.RANK.NINE.toString());
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -129,18 +129,18 @@ public class HandEvaluatorTest {
         int secondaryValue = evaluationResult.getSecondary();
 
         assertEquals(isFourOfAKindHand, true);
-        assertEquals(primaryValue, TestConstants.RANK.NINE.getValue());
-        assertEquals(secondaryValue, TestConstants.RANK.QUEEN.getValue());
+        assertEquals(primaryValue, Constants.RANK.NINE.getValue());
+        assertEquals(secondaryValue, Constants.RANK.QUEEN.getValue());
     }
 
     @Test
     public void should_Pass_When_PokerHandHasThreeOfAKindCards() {
         List<Card> cards = new ArrayList<>();
-        Card card1 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.QUEEN.toString());
-        Card card2 = new Card(TestConstants.SUITE.HEART.toString(), TestConstants.RANK.FIVE.toString());
-        Card card3 = new Card(TestConstants.SUITE.CLUB.toString(), TestConstants.RANK.QUEEN.toString());
-        Card card4 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.QUEEN.toString());
-        Card card5 = new Card(TestConstants.SUITE.SPADE.toString(), TestConstants.RANK.TEN.toString());
+        Card card1 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.QUEEN.toString());
+        Card card2 = new Card(Constants.SUITE.HEART.toString(), Constants.RANK.FIVE.toString());
+        Card card3 = new Card(Constants.SUITE.CLUB.toString(), Constants.RANK.QUEEN.toString());
+        Card card4 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.QUEEN.toString());
+        Card card5 = new Card(Constants.SUITE.SPADE.toString(), Constants.RANK.TEN.toString());
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -155,20 +155,20 @@ public class HandEvaluatorTest {
         int tertiaryValue = evaluationResult.getTertiary();
 
         assertEquals(isThreeOfAKind, true);
-        assertEquals(primaryValue, TestConstants.RANK.QUEEN.getValue());
-        assertEquals(secondaryValue, TestConstants.RANK.TEN.getValue());
-        assertEquals(tertiaryValue, TestConstants.RANK.FIVE.getValue());
+        assertEquals(primaryValue, Constants.RANK.QUEEN.getValue());
+        assertEquals(secondaryValue, Constants.RANK.TEN.getValue());
+        assertEquals(tertiaryValue, Constants.RANK.FIVE.getValue());
     }
 
 
     @Test
     public void should_Pass_When_PokerHandIsFullHouse() {
         List<Card> cards = new ArrayList<>();
-        Card card1 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.JACK.toString());
-        Card card2 = new Card(TestConstants.SUITE.HEART.toString(), TestConstants.RANK.JACK.toString());
-        Card card3 = new Card(TestConstants.SUITE.CLUB.toString(), TestConstants.RANK.QUEEN.toString());
-        Card card4 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.QUEEN.toString());
-        Card card5 = new Card(TestConstants.SUITE.SPADE.toString(), TestConstants.RANK.QUEEN.toString());
+        Card card1 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.JACK.toString());
+        Card card2 = new Card(Constants.SUITE.HEART.toString(), Constants.RANK.JACK.toString());
+        Card card3 = new Card(Constants.SUITE.CLUB.toString(), Constants.RANK.QUEEN.toString());
+        Card card4 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.QUEEN.toString());
+        Card card5 = new Card(Constants.SUITE.SPADE.toString(), Constants.RANK.QUEEN.toString());
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -182,18 +182,18 @@ public class HandEvaluatorTest {
         int secondaryValue = evaluationResult.getSecondary();
 
         assertEquals(isFullHouseHand, true);
-        assertEquals(primaryValue, TestConstants.RANK.QUEEN.getValue());
-        assertEquals(secondaryValue, TestConstants.RANK.JACK.getValue());
+        assertEquals(primaryValue, Constants.RANK.QUEEN.getValue());
+        assertEquals(secondaryValue, Constants.RANK.JACK.getValue());
     }
 
     @Test
     public void should_Pass_When_PokerHandIsAPair() {
         List<Card> cards = new ArrayList<>();
-        Card card1 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.JACK.toString());
-        Card card2 = new Card(TestConstants.SUITE.HEART.toString(), TestConstants.RANK.FOUR.toString());
-        Card card3 = new Card(TestConstants.SUITE.CLUB.toString(), TestConstants.RANK.TEN.toString());
-        Card card4 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.JACK.toString());
-        Card card5 = new Card(TestConstants.SUITE.SPADE.toString(), TestConstants.RANK.SEVEN.toString());
+        Card card1 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.JACK.toString());
+        Card card2 = new Card(Constants.SUITE.HEART.toString(), Constants.RANK.FOUR.toString());
+        Card card3 = new Card(Constants.SUITE.CLUB.toString(), Constants.RANK.TEN.toString());
+        Card card4 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.JACK.toString());
+        Card card5 = new Card(Constants.SUITE.SPADE.toString(), Constants.RANK.SEVEN.toString());
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -210,20 +210,20 @@ public class HandEvaluatorTest {
         boolean isPair = evaluationResult.isPartialOrder();
 
         assertEquals(isPair, true);
-        assertEquals(primaryValue, TestConstants.RANK.JACK.getValue());
-        assertEquals(secondaryValue, TestConstants.RANK.TEN.getValue());
-        assertEquals(tertiaryValue, TestConstants.RANK.SEVEN.getValue());
-        assertEquals(quaternaryValue, TestConstants.RANK.FOUR.getValue());
+        assertEquals(primaryValue, Constants.RANK.JACK.getValue());
+        assertEquals(secondaryValue, Constants.RANK.TEN.getValue());
+        assertEquals(tertiaryValue, Constants.RANK.SEVEN.getValue());
+        assertEquals(quaternaryValue, Constants.RANK.FOUR.getValue());
     }
 
     @Test
     public void should_Pass_When_PokerHandHasTwoPair() {
         List<Card> cards = new ArrayList<>();
-        Card card1 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.JACK.toString());
-        Card card2 = new Card(TestConstants.SUITE.HEART.toString(), TestConstants.RANK.FOUR.toString());
-        Card card3 = new Card(TestConstants.SUITE.CLUB.toString(), TestConstants.RANK.TEN.toString());
-        Card card4 = new Card(TestConstants.SUITE.CLUB.toString(), TestConstants.RANK.JACK.toString());
-        Card card5 = new Card(TestConstants.SUITE.SPADE.toString(), TestConstants.RANK.FOUR.toString());
+        Card card1 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.JACK.toString());
+        Card card2 = new Card(Constants.SUITE.HEART.toString(), Constants.RANK.FOUR.toString());
+        Card card3 = new Card(Constants.SUITE.CLUB.toString(), Constants.RANK.TEN.toString());
+        Card card4 = new Card(Constants.SUITE.CLUB.toString(), Constants.RANK.JACK.toString());
+        Card card5 = new Card(Constants.SUITE.SPADE.toString(), Constants.RANK.FOUR.toString());
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -239,19 +239,19 @@ public class HandEvaluatorTest {
         int tertiaryValue = evaluationResult.getTertiary();
 
         assertEquals(isTwoPair, true);
-        assertEquals(primaryValue, TestConstants.RANK.JACK.getValue());
-        assertEquals(secondaryValue, TestConstants.RANK.FOUR.getValue());
-        assertEquals(tertiaryValue, TestConstants.RANK.TEN.getValue());
+        assertEquals(primaryValue, Constants.RANK.JACK.getValue());
+        assertEquals(secondaryValue, Constants.RANK.FOUR.getValue());
+        assertEquals(tertiaryValue, Constants.RANK.TEN.getValue());
     }
 
     @Test
     public void should_Evaluate_When_PokerHandIsHighCard() {
-        List cards = new ArrayList<>();
-        Card card1 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.EIGHT.toString());
-        Card card2 = new Card(TestConstants.SUITE.HEART.toString(), TestConstants.RANK.KING.toString());
-        Card card3 = new Card(TestConstants.SUITE.CLUB.toString(), TestConstants.RANK.JACK.toString());
-        Card card4 = new Card(TestConstants.SUITE.SPADE.toString(), TestConstants.RANK.THREE.toString());
-        Card card5 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.QUEEN.toString());
+        List<Card> cards = new ArrayList<>();
+        Card card1 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.EIGHT.toString());
+        Card card2 = new Card(Constants.SUITE.HEART.toString(), Constants.RANK.KING.toString());
+        Card card3 = new Card(Constants.SUITE.CLUB.toString(), Constants.RANK.JACK.toString());
+        Card card4 = new Card(Constants.SUITE.SPADE.toString(), Constants.RANK.THREE.toString());
+        Card card5 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.QUEEN.toString());
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -268,21 +268,21 @@ public class HandEvaluatorTest {
         int quinaryValue = evaluationResult.getQuinary();
 
         assertEquals(isHighCard, true);
-        assertEquals(primaryValue, TestConstants.RANK.KING.getValue());
-        assertEquals(secondaryValue, TestConstants.RANK.QUEEN.getValue());
-        assertEquals(tertiaryValue, TestConstants.RANK.JACK.getValue());
-        assertEquals(quaternaryValue, TestConstants.RANK.EIGHT.getValue());
-        assertEquals(quinaryValue, TestConstants.RANK.THREE.getValue());
+        assertEquals(primaryValue, Constants.RANK.KING.getValue());
+        assertEquals(secondaryValue, Constants.RANK.QUEEN.getValue());
+        assertEquals(tertiaryValue, Constants.RANK.JACK.getValue());
+        assertEquals(quaternaryValue, Constants.RANK.EIGHT.getValue());
+        assertEquals(quinaryValue, Constants.RANK.THREE.getValue());
     }
 
     @Test
     public void should_Pass_When_PokerHandIsStraight() {
         List<Card> cards = new ArrayList<>();
-        Card card1 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.ACE.toString());
-        Card card2 = new Card(TestConstants.SUITE.HEART.toString(), TestConstants.RANK.KING.toString());
-        Card card3 = new Card(TestConstants.SUITE.CLUB.toString(), TestConstants.RANK.TEN.toString());
-        Card card4 = new Card(TestConstants.SUITE.SPADE.toString(), TestConstants.RANK.JACK.toString());
-        Card card5 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.QUEEN.toString());
+        Card card1 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.ACE.toString());
+        Card card2 = new Card(Constants.SUITE.HEART.toString(), Constants.RANK.KING.toString());
+        Card card3 = new Card(Constants.SUITE.CLUB.toString(), Constants.RANK.TEN.toString());
+        Card card4 = new Card(Constants.SUITE.SPADE.toString(), Constants.RANK.JACK.toString());
+        Card card5 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.QUEEN.toString());
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -299,21 +299,21 @@ public class HandEvaluatorTest {
         int quinaryValue = evaluationResult.getQuinary();
 
         assertEquals(isStraightHand, true);
-        assertEquals(primaryValue, TestConstants.RANK.ACE.getValue());
-        assertEquals(secondaryValue, TestConstants.RANK.KING.getValue());
-        assertEquals(tertiaryValue, TestConstants.RANK.QUEEN.getValue());
-        assertEquals(quaternaryValue, TestConstants.RANK.JACK.getValue());
-        assertEquals(quinaryValue, TestConstants.RANK.TEN.getValue());
+        assertEquals(primaryValue, Constants.RANK.ACE.getValue());
+        assertEquals(secondaryValue, Constants.RANK.KING.getValue());
+        assertEquals(tertiaryValue, Constants.RANK.QUEEN.getValue());
+        assertEquals(quaternaryValue, Constants.RANK.JACK.getValue());
+        assertEquals(quinaryValue, Constants.RANK.TEN.getValue());
     }
 
     @Test
     public void should_Pass_When_StraightFlushHand_IsDetected() {
         List<Card> cards = new ArrayList<>();
-        Card card1 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.ACE.toString());
-        Card card2 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.KING.toString());
-        Card card3 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.TEN.toString());
-        Card card4 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.JACK.toString());
-        Card card5 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.QUEEN.toString());
+        Card card1 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.ACE.toString());
+        Card card2 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.KING.toString());
+        Card card3 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.TEN.toString());
+        Card card4 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.JACK.toString());
+        Card card5 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.QUEEN.toString());
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -326,17 +326,17 @@ public class HandEvaluatorTest {
         EvaluationResult evaluationResult = handEvaluator.evaluate();
 
         int typeOfHand = evaluationResult.getPartialOrder();
-        assertEquals(typeOfHand, TestConstants.PARTIAL_ORDER.STRAIGHT_FLUSH.getValue());
+        assertEquals(typeOfHand, Constants.PARTIAL_ORDER.STRAIGHT_FLUSH.getValue());
     }
 
     @Test
     public void should_Pass_When_FourOfAKindHand_IsDetected() {
         List<Card> cards = new ArrayList<>();
-        Card card1 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.ACE.toString());
-        Card card2 = new Card(TestConstants.SUITE.HEART.toString(), TestConstants.RANK.ACE.toString());
-        Card card3 = new Card(TestConstants.SUITE.CLUB.toString(), TestConstants.RANK.ACE.toString());
-        Card card4 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.QUEEN.toString());
-        Card card5 = new Card(TestConstants.SUITE.SPADE.toString(), TestConstants.RANK.ACE.toString());
+        Card card1 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.ACE.toString());
+        Card card2 = new Card(Constants.SUITE.HEART.toString(), Constants.RANK.ACE.toString());
+        Card card3 = new Card(Constants.SUITE.CLUB.toString(), Constants.RANK.ACE.toString());
+        Card card4 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.QUEEN.toString());
+        Card card5 = new Card(Constants.SUITE.SPADE.toString(), Constants.RANK.ACE.toString());
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -351,20 +351,20 @@ public class HandEvaluatorTest {
         int primaryValue = evaluationResult.getPrimary();
         int secondaryValue = evaluationResult.getSecondary();
 
-        assertEquals(typeOfHand, TestConstants.PARTIAL_ORDER.FOUR_OF_A_KIND.getValue());
-        assertEquals(primaryValue, TestConstants.RANK.ACE.getValue());
-        assertEquals(secondaryValue, TestConstants.RANK.QUEEN.getValue());
+        assertEquals(typeOfHand, Constants.PARTIAL_ORDER.FOUR_OF_A_KIND.getValue());
+        assertEquals(primaryValue, Constants.RANK.ACE.getValue());
+        assertEquals(secondaryValue, Constants.RANK.QUEEN.getValue());
 
     }
 
     @Test
     public void should_Pass_When_StraightHand_IsDetected() {
         List<Card> cards = new ArrayList<>();
-        Card card1 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.ACE.toString());
-        Card card2 = new Card(TestConstants.SUITE.HEART.toString(), TestConstants.RANK.KING.toString());
-        Card card3 = new Card(TestConstants.SUITE.CLUB.toString(), TestConstants.RANK.TEN.toString());
-        Card card4 = new Card(TestConstants.SUITE.SPADE.toString(), TestConstants.RANK.JACK.toString());
-        Card card5 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.QUEEN.toString());
+        Card card1 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.ACE.toString());
+        Card card2 = new Card(Constants.SUITE.HEART.toString(), Constants.RANK.KING.toString());
+        Card card3 = new Card(Constants.SUITE.CLUB.toString(), Constants.RANK.TEN.toString());
+        Card card4 = new Card(Constants.SUITE.SPADE.toString(), Constants.RANK.JACK.toString());
+        Card card5 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.QUEEN.toString());
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -376,17 +376,17 @@ public class HandEvaluatorTest {
         HandEvaluator handEvaluator = new HandEvaluator(pokerHand);
         EvaluationResult evaluationResult = handEvaluator.evaluate();
         int typeOfHand = evaluationResult.getPartialOrder();
-        assertEquals(typeOfHand, TestConstants.PARTIAL_ORDER.STRAIGHT.getValue());
+        assertEquals(typeOfHand, Constants.PARTIAL_ORDER.STRAIGHT.getValue());
     }
 
     @Test
     public void should_Pass_When_FlushHand_IsDetected() {
         List<Card> cards = new ArrayList<>();
-        Card card1 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.ACE.toString());
-        Card card2 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.KING.toString());
-        Card card3 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.TEN.toString());
-        Card card4 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.TWO.toString());
-        Card card5 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.QUEEN.toString());
+        Card card1 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.ACE.toString());
+        Card card2 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.KING.toString());
+        Card card3 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.TEN.toString());
+        Card card4 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.TWO.toString());
+        Card card5 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.QUEEN.toString());
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -398,17 +398,17 @@ public class HandEvaluatorTest {
         HandEvaluator handEvaluator = new HandEvaluator(pokerHand);
         EvaluationResult evaluationResult = handEvaluator.evaluate();
         int typeOfHand = evaluationResult.getPartialOrder();
-        assertEquals(typeOfHand, TestConstants.PARTIAL_ORDER.FLUSH.getValue());
+        assertEquals(typeOfHand, Constants.PARTIAL_ORDER.FLUSH.getValue());
     }
 
     @Test
     public void should_Pass_When_FullHouseHand_IsDetected() {
         List<Card> cards = new ArrayList<>();
-        Card card1 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.JACK.toString());
-        Card card2 = new Card(TestConstants.SUITE.HEART.toString(), TestConstants.RANK.JACK.toString());
-        Card card3 = new Card(TestConstants.SUITE.CLUB.toString(), TestConstants.RANK.QUEEN.toString());
-        Card card4 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.QUEEN.toString());
-        Card card5 = new Card(TestConstants.SUITE.SPADE.toString(), TestConstants.RANK.QUEEN.toString());
+        Card card1 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.JACK.toString());
+        Card card2 = new Card(Constants.SUITE.HEART.toString(), Constants.RANK.JACK.toString());
+        Card card3 = new Card(Constants.SUITE.CLUB.toString(), Constants.RANK.QUEEN.toString());
+        Card card4 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.QUEEN.toString());
+        Card card5 = new Card(Constants.SUITE.SPADE.toString(), Constants.RANK.QUEEN.toString());
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -420,17 +420,17 @@ public class HandEvaluatorTest {
         HandEvaluator handEvaluator = new HandEvaluator(pokerHand);
         EvaluationResult evaluationResult = handEvaluator.evaluate();
         int typeOfHand = evaluationResult.getPartialOrder();
-        assertEquals(typeOfHand, TestConstants.PARTIAL_ORDER.FULL_HOUSE.getValue());
+        assertEquals(typeOfHand, Constants.PARTIAL_ORDER.FULL_HOUSE.getValue());
     }
 
     @Test
     public void should_Pass_When_ThreeOfAKindHand_IsDetected() {
         List<Card> cards = new ArrayList<>();
-        Card card1 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.QUEEN.toString());
-        Card card2 = new Card(TestConstants.SUITE.HEART.toString(), TestConstants.RANK.FOUR.toString());
-        Card card3 = new Card(TestConstants.SUITE.CLUB.toString(), TestConstants.RANK.FOUR.toString());
-        Card card4 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.FIVE.toString());
-        Card card5 = new Card(TestConstants.SUITE.SPADE.toString(), TestConstants.RANK.FOUR.toString());
+        Card card1 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.QUEEN.toString());
+        Card card2 = new Card(Constants.SUITE.HEART.toString(), Constants.RANK.FOUR.toString());
+        Card card3 = new Card(Constants.SUITE.CLUB.toString(), Constants.RANK.FOUR.toString());
+        Card card4 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.FIVE.toString());
+        Card card5 = new Card(Constants.SUITE.SPADE.toString(), Constants.RANK.FOUR.toString());
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -442,17 +442,17 @@ public class HandEvaluatorTest {
         HandEvaluator handEvaluator = new HandEvaluator(pokerHand);
         EvaluationResult evaluationResult = handEvaluator.evaluate();
         int typeOfHand = evaluationResult.getPartialOrder();
-        assertEquals(typeOfHand, TestConstants.PARTIAL_ORDER.THREE_OF_A_KIND.getValue());
+        assertEquals(typeOfHand, Constants.PARTIAL_ORDER.THREE_OF_A_KIND.getValue());
     }
 
     @Test
     public void should_Pass_When_TwoPairsHand_IsDetected() {
         List<Card> cards = new ArrayList<>();
-        Card card1 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.JACK.toString());
-        Card card2 = new Card(TestConstants.SUITE.HEART.toString(), TestConstants.RANK.FOUR.toString());
-        Card card3 = new Card(TestConstants.SUITE.CLUB.toString(), TestConstants.RANK.TEN.toString());
-        Card card4 = new Card(TestConstants.SUITE.CLUB.toString(), TestConstants.RANK.JACK.toString());
-        Card card5 = new Card(TestConstants.SUITE.SPADE.toString(), TestConstants.RANK.FOUR.toString());
+        Card card1 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.JACK.toString());
+        Card card2 = new Card(Constants.SUITE.HEART.toString(), Constants.RANK.FOUR.toString());
+        Card card3 = new Card(Constants.SUITE.CLUB.toString(), Constants.RANK.TEN.toString());
+        Card card4 = new Card(Constants.SUITE.CLUB.toString(), Constants.RANK.JACK.toString());
+        Card card5 = new Card(Constants.SUITE.SPADE.toString(), Constants.RANK.FOUR.toString());
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -464,17 +464,17 @@ public class HandEvaluatorTest {
         HandEvaluator handEvaluator = new HandEvaluator(pokerHand);
         EvaluationResult evaluationResult = handEvaluator.evaluate();
         int typeOfHand = evaluationResult.getPartialOrder();
-        assertEquals(typeOfHand, TestConstants.PARTIAL_ORDER.TWO_PAIRS.getValue());
+        assertEquals(typeOfHand, Constants.PARTIAL_ORDER.TWO_PAIRS.getValue());
     }
 
     @Test
     public void should_Pass_When_PairHand_IsDetected() {
         List<Card> cards = new ArrayList<>();
-        Card card1 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.JACK.toString());
-        Card card2 = new Card(TestConstants.SUITE.HEART.toString(), TestConstants.RANK.FOUR.toString());
-        Card card3 = new Card(TestConstants.SUITE.CLUB.toString(), TestConstants.RANK.TEN.toString());
-        Card card4 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.JACK.toString());
-        Card card5 = new Card(TestConstants.SUITE.SPADE.toString(), TestConstants.RANK.SEVEN.toString());
+        Card card1 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.JACK.toString());
+        Card card2 = new Card(Constants.SUITE.HEART.toString(), Constants.RANK.FOUR.toString());
+        Card card3 = new Card(Constants.SUITE.CLUB.toString(), Constants.RANK.TEN.toString());
+        Card card4 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.JACK.toString());
+        Card card5 = new Card(Constants.SUITE.SPADE.toString(), Constants.RANK.SEVEN.toString());
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -486,17 +486,17 @@ public class HandEvaluatorTest {
         HandEvaluator handEvaluator = new HandEvaluator(pokerHand);
         EvaluationResult evaluationResult = handEvaluator.evaluate();
         int typeOfHand = evaluationResult.getPartialOrder();
-        assertEquals(typeOfHand, TestConstants.PARTIAL_ORDER.PAIR.getValue());
+        assertEquals(typeOfHand, Constants.PARTIAL_ORDER.PAIR.getValue());
     }
 
     @Test
     public void should_Pass_When_HighCardHand_IsDetected() {
         List<Card> cards = new ArrayList<>();
-        Card card1 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.ACE.toString());
-        Card card2 = new Card(TestConstants.SUITE.HEART.toString(), TestConstants.RANK.KING.toString());
-        Card card3 = new Card(TestConstants.SUITE.CLUB.toString(), TestConstants.RANK.FOUR.toString());
-        Card card4 = new Card(TestConstants.SUITE.SPADE.toString(), TestConstants.RANK.TEN.toString());
-        Card card5 = new Card(TestConstants.SUITE.DIAMOND.toString(), TestConstants.RANK.QUEEN.toString());
+        Card card1 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.ACE.toString());
+        Card card2 = new Card(Constants.SUITE.HEART.toString(), Constants.RANK.KING.toString());
+        Card card3 = new Card(Constants.SUITE.CLUB.toString(), Constants.RANK.FOUR.toString());
+        Card card4 = new Card(Constants.SUITE.SPADE.toString(), Constants.RANK.TEN.toString());
+        Card card5 = new Card(Constants.SUITE.DIAMOND.toString(), Constants.RANK.QUEEN.toString());
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -508,6 +508,6 @@ public class HandEvaluatorTest {
         HandEvaluator handEvaluator = new HandEvaluator(pokerHand);
         EvaluationResult evaluationResult = handEvaluator.evaluate();
         int typeOfHand = evaluationResult.getPartialOrder();
-        assertEquals(typeOfHand, TestConstants.PARTIAL_ORDER.HIGH_CARD.getValue());
+        assertEquals(typeOfHand, Constants.PARTIAL_ORDER.HIGH_CARD.getValue());
     }
 }

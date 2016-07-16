@@ -2,7 +2,6 @@ package com.task.poker.core.evaluator;
 
 import com.task.poker.core.entity.hand.*;
 import com.task.poker.util.Constants;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +11,7 @@ import java.util.List;
 public class HandEvaluator {
 
     private final PokerHand pokerHand;
-    private List<PokerHand> typeOfHands = new ArrayList();
+    private final List<PokerHand> typeOfHands = new ArrayList<>();
 
     public HandEvaluator(PokerHand pokerHand) {
         this.pokerHand = pokerHand;
@@ -38,5 +37,4 @@ public class HandEvaluator {
         }
         return evaluationResult;
     }
-
 }

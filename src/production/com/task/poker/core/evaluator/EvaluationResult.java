@@ -20,7 +20,6 @@ public class EvaluationResult {
     private boolean isEqual = false;
 
     private int partialOrder;
-
     private boolean isPartialOrder = false;
 
     public static Comparator<EvaluationResult> byPartialOrder = (evaluationResult1, evaluationResult2) -> Integer.compare(evaluationResult1.partialOrder, evaluationResult2.partialOrder);
@@ -29,9 +28,10 @@ public class EvaluationResult {
     public static Comparator<EvaluationResult> byTertiary = (evaluationResult1, evaluationResult2) -> Integer.compare(evaluationResult1.tertiary, evaluationResult2.tertiary);
     public static Comparator<EvaluationResult> byQuatinary = (evaluationResult1, evaluationResult2) -> Integer.compare(evaluationResult1.quaternary, evaluationResult2.quaternary);
     public static Comparator<EvaluationResult> byQuinary = (evaluationResult1, evaluationResult2) -> Integer.compare(evaluationResult1.quinary, evaluationResult2.quinary);
+
     public EvaluationResult getWinner(List<EvaluationResult> evaluationResults) {
 
-        EvaluationResult evaluationResult = null;
+        EvaluationResult evaluationResult;
         if (evaluationResults.get(0).getPartialOrder() != evaluationResults.get(1).getPartialOrder()) {
             Collections.sort(evaluationResults, EvaluationResult.byPartialOrder);
             evaluationResult = evaluationResults.get(0);
