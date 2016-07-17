@@ -9,11 +9,11 @@ import java.util.List;
 /**
  * Created by user on 6/30/2016.
  */
-public class StraightFlush extends PokerHand {
+public final class StraightFlush extends PokerHand {
 
     public static final String handType = Constants.PARTIAL_ORDER.STRAIGHT_FLUSH.toString();
 
-    public StraightFlush(List<Card> cards) {
+    public StraightFlush(final List<Card> cards) {
         super(cards, handType);
     }
 
@@ -31,7 +31,7 @@ public class StraightFlush extends PokerHand {
         return evaluationResult;
     }
 
-    private void setCardRankOrder(EvaluationResult evaluationResult) {
+    private void setCardRankOrder(final EvaluationResult evaluationResult) {
         sortCardsByRank();
         evaluationResult.setPrimary(Constants.RANK.valueOf(getCards().get(4).getRank()).getValue());
         evaluationResult.setSecondary(Constants.RANK.valueOf(getCards().get(3).getRank()).getValue());

@@ -2,18 +2,19 @@ package com.task.poker.core.evaluator;
 
 import com.task.poker.core.entity.hand.*;
 import com.task.poker.util.Constants;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by user on 6/25/2016.
  */
-public class HandEvaluator {
+public final class HandEvaluator {
 
     private final PokerHand pokerHand;
     private final List<PokerHand> typeOfHands = new ArrayList<>();
 
-    public HandEvaluator(PokerHand pokerHand) {
+    public HandEvaluator(final PokerHand pokerHand) {
         this.pokerHand = pokerHand;
         typeOfHands.add(new StraightFlush(this.pokerHand.getCards()));
         typeOfHands.add(new FourOfAKind(this.pokerHand.getCards()));

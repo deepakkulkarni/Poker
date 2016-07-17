@@ -10,11 +10,11 @@ import java.util.List;
 /**
  * Created by user on 6/30/2016.
  */
-public class FullHouse extends PokerHand {
+public final class FullHouse extends PokerHand {
 
     public static final String handType = Constants.PARTIAL_ORDER.FULL_HOUSE.toString();
 
-    public FullHouse(List<Card> cards) {
+    public FullHouse(final List<Card> cards) {
         super(cards, handType);
     }
 
@@ -46,7 +46,7 @@ public class FullHouse extends PokerHand {
         return evaluationResult;
     }
 
-    private void setCardRankOrder(EvaluationResult evaluationResult, List<Card> pair, List<Card> triplet) {
+    private void setCardRankOrder(final EvaluationResult evaluationResult, final List<Card> pair, final List<Card> triplet) {
         evaluationResult.setPrimary(Constants.RANK.valueOf(triplet.get(0).getRank()).getValue());
         evaluationResult.setSecondary(Constants.RANK.valueOf(pair.get(0).getRank()).getValue());
     }

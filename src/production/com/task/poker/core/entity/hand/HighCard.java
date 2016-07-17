@@ -9,11 +9,11 @@ import java.util.List;
 /**
  * Created by user on 6/30/2016.
  */
-public class HighCard extends PokerHand {
+public final class HighCard extends PokerHand {
 
     public static final String handType = Constants.PARTIAL_ORDER.HIGH_CARD.toString();
 
-    public HighCard(List<Card> cards) {
+    public HighCard(final List<Card> cards) {
         super(cards, handType);
     }
 
@@ -25,7 +25,7 @@ public class HighCard extends PokerHand {
         return evaluationResult;
     }
 
-    private void setCardRankOrder(EvaluationResult evaluationResult) {
+    private void setCardRankOrder(final EvaluationResult evaluationResult) {
         sortCardsByRank();
         evaluationResult.setPrimary(Constants.RANK.valueOf(getCards().get(4).getRank()).getValue());
         evaluationResult.setSecondary(Constants.RANK.valueOf(getCards().get(3).getRank()).getValue());

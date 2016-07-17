@@ -21,12 +21,12 @@ public class PokerHand implements Evaluator {
     private List<Card> originalCards;
     private String handType;
 
-    public PokerHand(List<Card> cards) {
+    public PokerHand(final List<Card> cards) {
         this.cards = cards;
         this.originalCards = new ArrayList<>(cards);
     }
 
-    public PokerHand(List<Card> cards, String handType) {
+    public PokerHand(final List<Card> cards, final String handType) {
         this.cards = cards;
         this.handType = handType;
     }

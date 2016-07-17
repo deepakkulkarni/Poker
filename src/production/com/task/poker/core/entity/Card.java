@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by user on 6/25/2016.
  */
-public class Card {
+public final class Card {
 
     public static final Comparator<Card> byRank = (c1, c2) -> Integer.compare(Constants.RANK.valueOf(c1.getRank()).getValue(), Constants.RANK.valueOf(c2.getRank()).getValue());
     private final String suite;
@@ -20,13 +20,25 @@ public class Card {
         this.rank = rank;
     }
 
-    public static List<Card> sortByRank(List<Card> cards) {
+    public static List<Card> sortByRank(final List<Card> cards) {
         Collections.sort(cards, byRank);
         return cards;
     }
 
     public int getRankValue() {
         return Constants.RANK.valueOf(this.rank).getValue();
+    }
+
+    public int getSuiteValue() {
+        return Constants.SUITE.valueOf(this.suite).getValue();
+    }
+
+    public String getSuite() {
+        return suite;
+    }
+
+    public String getRank() {
+        return rank;
     }
 
     @Override
@@ -48,20 +60,8 @@ public class Card {
         return result;
     }
 
-    public int getSuiteValue() {
-        return Constants.SUITE.valueOf(this.suite).getValue();
-    }
-
     @Override
     public String toString() {
         return Constants.SUITE.valueOf(this.suite).getAbbreviation() + Constants.RANK.valueOf(this.rank).getAbbreviation();
-    }
-
-    public String getSuite() {
-        return suite;
-    }
-
-    public String getRank() {
-        return rank;
     }
 }

@@ -10,11 +10,11 @@ import java.util.List;
 /**
  * Created by user on 6/30/2016.
  */
-public class ThreeOfAKind extends PokerHand {
+public final class ThreeOfAKind extends PokerHand {
 
     public static final String handType = Constants.PARTIAL_ORDER.THREE_OF_A_KIND.toString();
 
-    public ThreeOfAKind(List<Card> cards) {
+    public ThreeOfAKind(final List<Card> cards) {
         super(cards, handType);
     }
 
@@ -43,13 +43,11 @@ public class ThreeOfAKind extends PokerHand {
         return evaluationResult;
     }
 
-    private void setCardRankOrder(EvaluationResult evaluationResult, List<Card> triplet) {
+    private void setCardRankOrder(final EvaluationResult evaluationResult, final List<Card> triplet) {
         getCards().removeAll(triplet);
         sortCardsByRank();
         evaluationResult.setPrimary(Constants.RANK.valueOf(triplet.get(0).getRank()).getValue());
-
         evaluationResult.setSecondary(Constants.RANK.valueOf(getCards().get(1).getRank()).getValue());
         evaluationResult.setTertiary(Constants.RANK.valueOf(getCards().get(0).getRank()).getValue());
     }
-
 }

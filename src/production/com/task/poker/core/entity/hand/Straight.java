@@ -9,11 +9,11 @@ import java.util.List;
 /**
  * Created by user on 6/30/2016.
  */
-public class Straight extends PokerHand {
+public final class Straight extends PokerHand {
 
     public static final String handType = Constants.PARTIAL_ORDER.STRAIGHT.toString();
 
-    public Straight(List<Card> cards) {
+    public Straight(final List<Card> cards) {
         super(cards, handType);
     }
 
@@ -32,7 +32,7 @@ public class Straight extends PokerHand {
         return evaluationResult;
     }
 
-    private void setCardRankOrder(EvaluationResult evaluationResult) {
+    private void setCardRankOrder(final EvaluationResult evaluationResult) {
         sortCardsByRank();
         evaluationResult.setPrimary(Constants.RANK.valueOf(getCards().get(4).getRank()).getValue());
         evaluationResult.setSecondary(Constants.RANK.valueOf(getCards().get(3).getRank()).getValue());
@@ -40,5 +40,4 @@ public class Straight extends PokerHand {
         evaluationResult.setQuaternary(Constants.RANK.valueOf(getCards().get(1).getRank()).getValue());
         evaluationResult.setQuinary(Constants.RANK.valueOf(getCards().get(0).getRank()).getValue());
     }
-
 }

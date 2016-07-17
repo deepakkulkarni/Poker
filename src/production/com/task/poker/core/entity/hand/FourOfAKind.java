@@ -1,20 +1,19 @@
 package com.task.poker.core.entity.hand;
 
 import com.task.poker.core.entity.Card;
-import com.task.poker.util.Constants;
 import com.task.poker.core.evaluator.EvaluationResult;
-
+import com.task.poker.util.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by user on 6/30/2016.
  */
-public class FourOfAKind extends PokerHand {
+public final class FourOfAKind extends PokerHand {
 
     public static final String handType = Constants.PARTIAL_ORDER.FOUR_OF_A_KIND.toString();
 
-    public FourOfAKind(List<Card> cards) {
+    public FourOfAKind(final List<Card> cards) {
         super(cards, handType);
     }
 
@@ -43,7 +42,7 @@ public class FourOfAKind extends PokerHand {
         return evaluationResult;
     }
 
-    private void setCardRankOrder(EvaluationResult evaluationResult, List<Card> quadrant) {
+    private void setCardRankOrder(final EvaluationResult evaluationResult, final List<Card> quadrant) {
         getCards().removeAll(quadrant);
         evaluationResult.setPrimary(Constants.RANK.valueOf(quadrant.get(0).getRank()).getValue());
         evaluationResult.setSecondary(Constants.RANK.valueOf(getCards().get(0).getRank()).getValue());
