@@ -14,7 +14,6 @@ import java.awt.*;
 public class View {
 
     private static final Logger logger = Logger.getLogger(View.class);
-
     public static final JTextField card1 = new JTextField(4);
     public static final JTextField card2 = new JTextField(4);
     public static final JTextField card3 = new JTextField(4);
@@ -32,36 +31,37 @@ public class View {
     public static final JLabel tertiary = new JLabel();
     public static final JLabel quaternary = new JLabel();
     public static final JLabel quinary = new JLabel();
-    public static final Font font = new Font("Courier", Font.BOLD, 12);
-    public static final Font headerFont = new Font("Courier", Font.BOLD, 13);
-    public static final JCheckBox deck1 = new JCheckBox("Deck 1");
-    public static final JCheckBox deck2 = new JCheckBox("Deck 2");
+    public static final Font font = new Font("Verdana", Font.BOLD, 11);
+    public static final Font headerFont = new Font("Verdana", Font.BOLD, 13);
+    public static final JCheckBox deck1 = new JCheckBox("DECK 1");
+    public static final JCheckBox deck2 = new JCheckBox("DECK 2");
     public static final Border lowerEtched = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
     public static final Border upperEtched = BorderFactory.createBevelBorder(BevelBorder.RAISED);
     public static final JPanel resultPanel = new JPanel();
     public static boolean isDeck1Selected = true;
     public static boolean isDeck2Selected = false;
 
-    private static final String FRAME_NAME = "Poker Hands Evaluator";
-    private static final String DISTRIBUTE_PANEL_NAME = "Distribute Cards";
+    private static final String FRAME_NAME = "POKER HANDS EVALUATOR";
+    private static final String DISTRIBUTE_PANEL_NAME = "DISTRIBUTE CARDS";
     private static final String RESULT_PANEL_NAME = "RESULT";
-    private static final String HAND1_PANEL_NAME = "Hand 1";
-    private static final String HAND2_PANEL_NAME = "Hand 2";
+    private static final String HAND1_PANEL_NAME = "HAND 1";
+    private static final String HAND2_PANEL_NAME = "HAND 2";
+    private static final String RESET_BUTTON_NAME = "RESET";
     private static final String EVALUATE_RESULT_BUTTON_NAME = "EVALUATE RESULT";
     private static final String DISTRIBUTE_BUTTON_NAME = "DISTRIBUTE / REDISTRIBUTE";
 
-    public static void launchGUI() {
-        javax.swing.SwingUtilities.invokeLater(() -> {
-            try {
-                createAndShowGUI();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+    public static void launchGUI() throws Exception {
+        javax.swing.SwingUtilities.invokeLater(() -> createAndShowGUI());
     }
 
-    private static void createAndShowGUI() throws Exception {
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    private static void createAndShowGUI() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | IllegalAccessException | UnsupportedLookAndFeelException | InstantiationException e) {
+            logger.error("Exception while creating and showing GUI", e);
+        } catch (Exception ex) {
+            logger.error("Exception while creating and showing GUI", ex);
+        }
         configureAndDisplayMainFrame();
     }
 
@@ -105,6 +105,7 @@ public class View {
 
         deck1.setSelected(true);
         deck1.setEnabled(false);
+        deck1.setFont(font);
         GridBagConstraints gc = new GridBagConstraints();
         gc.insets = new Insets(5, 0, 5, 5);
         gc.gridx = 0;
@@ -114,6 +115,7 @@ public class View {
         distributePanel.add(deck1, gc);
 
         deck2.addActionListener(e -> Controller.checkBox2Clicked());
+        deck2.setFont(font);
         gc = new GridBagConstraints();
         gc.insets = new Insets(5, 0, 5, 25);
         gc.gridx = 1;
@@ -126,18 +128,30 @@ public class View {
         distribute.setPreferredSize(new Dimension(250, 40));
 
         gc = new GridBagConstraints();
-        gc.insets = new Insets(5, 25, 5, 20);
+        gc.insets = new Insets(5, 10, 5, 10);
         gc.gridx = 2;
         gc.gridy = 0;
-        gc.weightx = 0.1;
+        gc.weightx = 0.0;
         gc.anchor = GridBagConstraints.WEST;
         distributePanel.add(distribute, gc);
+
+        JButton reset = new JButton(RESET_BUTTON_NAME);
+        reset.setFont(font);
+        reset.addActionListener(e -> Controller.reset());
+        reset.setPreferredSize(new Dimension(100, 40));
+
+        gc = new GridBagConstraints();
+        gc.insets = new Insets(5, 25, 5, 10);
+        gc.gridx = 3;
+        gc.gridy = 0;
+        gc.weightx = 1;
+        gc.anchor = GridBagConstraints.WEST;
+        distributePanel.add(reset, gc);
 
         pane.add(distributePanel, gBC);
     }
 
     private static void makeHand1Panel(Container pane) {
-
         JPanel hand1Panel = new JPanel();
         TitledBorder title = BorderFactory.createTitledBorder(lowerEtched, HAND1_PANEL_NAME, TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION, headerFont);
         hand1Panel.setBorder(title);
@@ -194,7 +208,6 @@ public class View {
     }
 
     private static void makeHand2Panel(Container pane) {
-
         GridBagConstraints gBC = new GridBagConstraints();
         gBC.insets = new Insets(15, 15, 15, 15);
         JPanel hand2Panel = new JPanel();
@@ -251,7 +264,6 @@ public class View {
     }
 
     private static void makeInformationPanel(Container pane) {
-
         GridBagConstraints gBC = new GridBagConstraints();
         gBC.insets = new Insets(5, 15, 15, 15);
         JPanel evaluatePanel = new JPanel();
@@ -263,10 +275,10 @@ public class View {
         gBC.gridwidth = 2;
         gBC.fill = GridBagConstraints.BOTH;
 
-        Font font = new Font("Courier", Font.ITALIC, 11);
+        Font font = new Font("Verdana",  Font.BOLD + Font.ITALIC, 11);
         JLabel information = new JLabel();
         information.setFont(font);
-        information.setText("First character in card denotes suite (S,D,H,C) while the second character denotes rank (2,3,4,5,6,7,8,9,10,J,Q,K,A)");
+        information.setText("Note:  First character in card denotes suite (S,D,H,C) while the second character denotes rank (2,3,4,5,6,7,8,9,10,J,Q,K,A)");
         GridBagConstraints gc = new GridBagConstraints();
         gc.insets = new Insets(5, 0, 25, 0);
         gc.gridx = 0;
@@ -291,7 +303,7 @@ public class View {
         JButton evaluate = new JButton(EVALUATE_RESULT_BUTTON_NAME);
         evaluate.setFont(headerFont);
         evaluate.addActionListener(e -> Controller.evaluateResult());
-        evaluate.setPreferredSize(new Dimension(350, 50));
+        evaluate.setPreferredSize(new Dimension(400, 60));
         GridBagConstraints gc = new GridBagConstraints();
         gc.insets = new Insets(5, 0, 20, 0);
         gc.gridx = 3;

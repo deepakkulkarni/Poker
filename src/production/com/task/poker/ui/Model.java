@@ -22,10 +22,11 @@ public class Model {
         return true;
     }
 
-    public static void setResult(String hand, EvaluationResult winner) {
+    public static void setResultToUI(String hand, EvaluationResult winner) {
         setFont();
         if (winner.isEqual()) View.result.setText("BOTH HANDS ARE IDENTICAL. PLEASE REDISTRIBUTE");
         else View.result.setText("Winner Hand : " + hand);
+
         View.partialOrder.setText("Partial Order : " + Constants.PARTIAL_ORDER.values()[winner.getPartialOrder() - 1].toString());
         if (winner.getPrimary() != -1)
             View.primary.setText("Primary Rank : " + Constants.RANK.valueOf(winner.getPrimary()) + "  (" + winner.getPrimary() + ")");

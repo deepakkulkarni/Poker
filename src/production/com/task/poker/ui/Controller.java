@@ -38,6 +38,24 @@ public class Controller {
         View.card10.setText(hand[9]);
     }
 
+    public static void reset() {
+        View.card1.setText("");
+        View.card2.setText("");
+        View.card3.setText("");
+        View.card4.setText("");
+        View.card5.setText("");
+        View.card6.setText("");
+        View.card7.setText("");
+        View.card8.setText("");
+        View.card9.setText("");
+        View.card10.setText("");
+
+        View.isDeck2Selected = false;
+        View.deck2.setSelected(false);
+
+        resetResultPanel();
+    }
+
     public static String[] readHand1() {
         String input[] = new String[5];
         input[0] = View.card1.getText();
@@ -62,7 +80,7 @@ public class Controller {
         Facade facade = new Facade();
         List<PokerHand> pokerHands = facade.composeInput();
         EvaluationResult winner = facade.getEvaluationResult(pokerHands);
-        Model.setResult(facade.getWinnerHandDetails(winner.getPokerHand()), winner);
+        Model.setResultToUI(facade.getWinnerHandDetails(winner.getPokerHand()), winner);
         facade.printResultToConsoleAndFile(winner);
     }
 

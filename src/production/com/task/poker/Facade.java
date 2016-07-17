@@ -22,7 +22,11 @@ public class Facade {
     private static final Logger logger = Logger.getLogger(Facade.class);
 
     public void launchGUI() {
-        View.launchGUI();
+        try {
+            View.launchGUI();
+        } catch (Exception e) {
+            logger.error("Exception while launching GUI", e);
+        }
     }
 
     public static EvaluationResult getEvaluationResult(List<PokerHand> pokerHands) {
@@ -131,7 +135,7 @@ public class Facade {
                 return suite.name();
             }
         }
-        return "";
+        return Constants.EMPTY_STRING;
     }
 
     private String[] getCardsForHand(int size) {
